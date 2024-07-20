@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /src/components/admin/
+Disallow: /src/components/shop/auth/
+Disallow: /src/components/shop/icons/
+
+Sitemap: https://pranmotors.com/sitemap.xml

@@ -1,0 +1,96 @@
+/* transitions.css */
+.relative {
+  overflow: hidden; /* Ensure the transition happens within the parent div */
+}
+
+.slide-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.slide-enter-active {
+  transform: translateX(0%);
+  opacity: 1;
+  transition:
+    transform 300ms ease-in-out,
+    opacity 300ms ease-in-out;
+}
+.slide-exit {
+  transform: translateX(0%);
+  opacity: 1;
+}
+.slide-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition:
+    transform 300ms ease-in-out,
+    opacity 300ms ease-in-out;
+}
+
+/* Sliding background for buttons with rounded corners */
+.slide-background {
+  position: relative;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.slide-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  background-color: #f71979;
+  transition:
+    transform 300ms ease-in-out,
+    border-radius 300ms ease-in-out;
+  z-index: 0;
+}
+
+.slide-background.active-left::before {
+  transform: translateX(0);
+  border-radius: 10px 0 0 10px;
+}
+
+.slide-background.active-right::before {
+  transform: translateX(100%);
+  border-radius: 0 10px 10px 0;
+}
+
+.button-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  z-index: 2;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: white;
+  transition:
+    color 300ms ease-in-out,
+    border-radius 300ms ease-in-out;
+}
+
+.button.inactive {
+  color: #f71979;
+}
+
+.button.active {
+  color: white;
+}
+
+.button.active-left {
+  border-radius: 50px 0 0 50px;
+}
+
+.button.active-right {
+  border-radius: 0 50px 50px 0;
+}
