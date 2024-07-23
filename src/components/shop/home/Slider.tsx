@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { HomeContext } from './HomeContext';
 import { HomeContextProps, SliderImage } from './types';
 import { sliderImages } from '../../admin/dashboardAdmin/Action';
-import 'tailwindcss/tailwind.css';
 
 interface SliderProps {
   initialSliderImages: SliderImage[];

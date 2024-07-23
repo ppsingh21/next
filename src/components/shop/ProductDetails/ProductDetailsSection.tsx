@@ -150,22 +150,23 @@ const ProductDetailsSection = ({
       payload: initialProductData,
     });
     layoutDispatch({ type: 'inCart', payload: cartList() });
-    fetchCartProduct();
-  }, [initialProductData]);
-
-  const fetchCartProduct = async () => {
-    try {
-      const responseData = await cartListProduct();
-      if (responseData && responseData.Products) {
-        layoutDispatch({
-          type: 'cartProduct',
-          payload: responseData.Products,
-        });
+    const fetchCartProduct = async () => {
+      try {
+        const responseData = await cartListProduct();
+        if (responseData && responseData.Products) {
+          layoutDispatch({
+            type: 'cartProduct',
+            payload: responseData.Products,
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+
+    fetchCartProduct();
+  }, [initialProductData, layoutDispatch]);
+
 
   const handleContact = async (booking: string, Name: string) => {
     // Reset previous error messages

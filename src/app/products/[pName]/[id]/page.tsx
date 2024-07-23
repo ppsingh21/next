@@ -1,7 +1,9 @@
+import React from 'react';
+import { notFound } from 'next/navigation';
 import { getSingleProduct } from '@/components/shop/ProductDetails/FetchApi';
 import ProductDetailsSection from '@/components/shop/ProductDetails/ProductDetailsSection';
-import React from 'react';
 import { Metadata } from 'next';
+import { getAllProduct } from '@/components/admin/products/FetchApi';
 
 interface Product {
   _id: string;
@@ -41,9 +43,17 @@ interface PageProps {
   };
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateStaticParams() {
+  const response = await getAllProduct();
+  const products = response?.Products || [];
+
+  return products.map((product: { _id: string, pName: string }) => ({
+    id: product._id,
+    pName: product.pName.replace(/\s+/g, '-').replace(/[^\w-]/g, ''),  // Remove special characters
+  }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = params;
   const responseData = await getSingleProduct(id);
 
@@ -65,7 +75,7 @@ export async function generateMetadata({
           secureUrl: `${process.env.NEXT_PUBLIC_API_URL}/uploads/products/${product.pImages[0]}`,
         },
       ],
-      url: typeof window !== 'undefined' ? window.location.href : '',
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/products/${product.pName}/${product._id}`,
       type: 'website',
       siteName: 'PranMotors',
     },
@@ -77,8 +87,7 @@ const Page = async ({ params }: PageProps) => {
   const responseData = await getSingleProduct(id);
 
   if (!responseData || !responseData.Product) {
-    // Return 404 not found if product data is not found
-    return <div>Product not found</div>;
+    notFound();
   }
 
   const product = responseData.Product;

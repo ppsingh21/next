@@ -12,7 +12,7 @@ const AdminDashboard = () => {
     if (!isAuthenticated) {
       router.push('/admin/login');
     }
-  }, []);
+  }, [router]);
 
   return <DashboardAdmin />;
 };

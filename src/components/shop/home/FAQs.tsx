@@ -30,7 +30,7 @@ const FAQs: React.FC = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [isClient]);
 
   const toggleAnswer = (index: number) => {
     setShowAnswer(showAnswer === index ? null : index);

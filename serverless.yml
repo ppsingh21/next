@@ -1,0 +1,19 @@
+service: pranmotors-nextjs
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+
+functions:
+  nextjs:
+    handler: handler.render
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+plugins:
+  - serverless-next.js
+
+custom:
+  nextConfigDir: ./  # Adjust if your next.config.js is in a different directory

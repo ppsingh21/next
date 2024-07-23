@@ -30,7 +30,7 @@ const ProductCategory: React.FC = () => {
       type: 'categoryListDropdown',
       payload: !data.categoryListDropdown,
     });
-  }, []);
+  }, [dispatch, data.categoryListDropdown]);
 
   return (
     <Fragment>
