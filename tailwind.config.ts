@@ -17,10 +17,19 @@ const config: Config = {
         '120': '30rem',
       },
       fontFamily: {
-        'clarendon': ['"Clarendon Regular"', 'serif'],
+        'clarendon': 'Clarendon Regular',
+      },
+      aspectRatio: {
+        '4/3': '4 / 3',
+        '2/1': '2 / 1',
+      },
+      fontSize: {
+        'xs-custom': '10px',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 };
 export default config;

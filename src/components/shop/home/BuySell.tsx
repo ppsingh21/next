@@ -65,7 +65,7 @@ const BuyCarSection = () => {
       <div className="text-center py-6 font-bold text-2xl">
         Pran Motors Advantage
       </div>
-      <div className={`flex py-2 lg:space-x-8 space-y-4 text-center justify-center ${isMobile ? 'flex-col' : 'lg:flex-row'}`}>
+      <div className="flex py-2 lg:space-x-8 space-y-4 text-center justify-center flex-col md:flex-row">
         <div className="lg:pl-4 lg:pr-2 mt-4">
           <Image src={inspection} alt="inspection" />
           <p className="font-medium text-lg p-2">200-Points Inspection</p>
@@ -99,13 +99,7 @@ const BuyCarSection = () => {
         </div>
       </div>
       <div
-        className="flex justify-between items-center lg:p-8 pt-4 space-y-2"
-        style={{
-          display: 'flex',
-          flexDirection: isMobile
-            ? 'column'
-            : 'row' /* Set to column for screens less than 768px */,
-        }}
+        className="flex justify-between items-center lg:p-8 pt-4 space-y-2 flex-col md:flex-row"
       >
         <div className="flex flex-row justify-center items-center">
           <svg

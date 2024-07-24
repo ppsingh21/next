@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { HomeContext } from './HomeContext';
 import { HomeContextProps, SliderImage } from './types';
 import { sliderImages } from '../../admin/dashboardAdmin/Action';
+import './style.css';
 
 interface SliderProps {
   initialSliderImages: SliderImage[];
@@ -54,53 +55,41 @@ const Slider: React.FC<SliderProps> = ({ initialSliderImages }) => {
       : initialSliderImages;
 
   return (
-    <div className="relative font-bold text-black font-clarendon">
+    <div id="fontdiv" className="relative font-bold text-black font-clarendon">
       {sliderImagesData && sliderImagesData.length > 0 ? (
         <div id="slider" className="relative">
           <Image
-            className="w-full object-cover object-center"
+            className="w-full object-cover object-center aspect-[4/3] md:aspect-[2/1]"
             src={`${apiURL}/uploads/customize/${sliderImagesData[slide].slideImage}`}
             alt="sliderImage"
             width={100}
             height={isMobile ? 300 : 500}
             priority={true}
-            style={{
-              aspectRatio: isMobile ? '4/3' : '2/1',
-            }}
           />
           <span
-            className={`absolute top-0 ${
-              isMobile ? 'translate-x-2.5 translate-y-10 text-xs font-normal' : 'translate-x-10 translate-y-32 text-4xl font-normal'
-            }`}
+            className="font-clarendon absolute top-0 translate-x-2.5 translate-y-10 text-xs font-normal md:translate-x-10 md:translate-y-32 md:text-4xl"
           >
             Best Price - Guaranteed!
           </span>
           <span
-            className={`absolute top-0 ${
-              isMobile ? 'translate-x-2.5 translate-y-14 text-lg tracking-wider font-normal' : 'translate-x-10 tracking-wider translate-y-48 text-7xl font-normal'
-            }`}
+            className="font-clarendon absolute top-0 translate-x-2.5 translate-y-14 text-lg tracking-wider font-normal md:translate-x-10 md:tracking-wider md:translate-y-48 md:text-7xl"
           >
             Only
           </span>
           <span
-            className={`absolute top-0 text-pink-600 ${
-              isMobile ? 'translate-x-16 translate-y-14 text-lg tracking-wider font-normal' : 'translate-x-60 tracking-wider translate-y-48 text-7xl font-normal'
-            }`}
+            className="font-clarendon absolute top-0 text-pink-600 translate-x-16 translate-y-14 text-lg tracking-wider font-normal md:translate-x-60 md:tracking-wider md:translate-y-48 md:text-7xl"
           >
             Less Driven
           </span>
           <span
-            className={`absolute top-0 text-pink-600 ${
-              isMobile ? 'translate-x-2.5 translate-y-20 text-lg tracking-wider font-normal' : 'translate-x-10 translate-y-72 text-7xl font-normal tracking-wider'
-            }`}
+            className="font-clarendon absolute top-0 text-pink-600 translate-x-2.5 translate-y-20 text-lg tracking-wider font-normal md:translate-x-10 md:translate-y-72 md:text-7xl md:tracking-wider"
           >
             Used Cars!
           </span>
           <Link href="/all-products"
-            className={`absolute top-0 text-white text-center transition-colors duration-500 ${
-              isMobile
-                ? 'translate-x-3 translate-y-44 text-xs py-1 px-2 font-normal'
-                : 'translate-x-10 translate-y-108 text-2xl py-2 px-5 font-normal'
+            className={`font-clarendon absolute top-0 text-white text-center transition-colors duration-500
+              translate-x-3 translate-y-44 text-xs py-1 px-2 font-light md:font-normal'
+              md:translate-x-10 md:translate-y-108 md:text-2xl md:py-2 md:px-5
             } ${isHovered ? 'bg-pink-600' : 'bg-purple-700'} rounded shadow-md`}
           >
             View All Cars

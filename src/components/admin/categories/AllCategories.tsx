@@ -11,29 +11,10 @@ const AllCategory: React.FC = () => {
   const context = useContext(CategoryContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-    if (!context) return;
-
-    const { dispatch } = context;
-    dispatch({ type: 'loading', payload: true });
-    const responseData = await getAllCategory();
-    setTimeout(() => {
-      if (responseData && responseData.Categories) {
-        dispatch({
-          type: 'fetchCategoryAndChangeState',
-          payload: responseData.Categories,
-        });
-        dispatch({ type: 'loading', payload: false });
-      } else {
-        dispatch({ type: 'loading', payload: false });
-        // handle error appropriately if needed
-      }
-    }, 1000);
-  };
     if (context) {
       fetchData();
     }
-  }, [context]);
+  }, []);
 
   const fetchData = async () => {
     if (!context) return;

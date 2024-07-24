@@ -47,11 +47,16 @@ export async function generateStaticParams() {
   const response = await getAllProduct();
   const products = response?.Products || [];
 
-  return products.map((product: { _id: string, pName: string }) => ({
+  return products.map((product: Product) => ({
     id: product._id,
-    pName: product.pName.replace(/\s+/g, '-').replace(/[^\w-]/g, ''),  // Remove special characters
+    pName: sanitizeProductName(product.pName),  // Sanitize the product name
   }));
 }
+
+function sanitizeProductName(name: string) {
+  return name.replace(/[^a-zA-Z0-9-]/g, '-');  // Replace invalid characters with '-'
+}
+
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = params;

@@ -30,6 +30,7 @@ import sunroof from './sunroof.png';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LayoutContext } from '../layout/layoutContext';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 declare global {
   interface Window {
@@ -66,19 +67,6 @@ interface Product {
   };
   pTag: string;
   pColour: string;
-}
-
-interface ContextType {
-  state: any;
-  dispatch: React.Dispatch<any>;
-}
-
-interface LayoutContextType {
-  state: {
-    singleProductDetail: Product | null;
-    cartProduct: Product[];
-  };
-  dispatch: React.Dispatch<any>;
 }
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL as string;
@@ -267,6 +255,25 @@ const ProductDetailsSection = ({
     return emi.toFixed(2); // Return EMI rounded to 2 decimal places
   };
 
+  const customRenderIndicator = (
+    onClickHandler: (e: React.MouseEvent | React.KeyboardEvent) => void,
+    isSelected: boolean,
+    index: number,
+    label: string
+  ) => {
+    if (index < 8) { // Limit to 8 dots
+        return (
+            <li
+                className={`dot ${isSelected ? 'selected' : ''}`}
+                onClick={onClickHandler}
+                key={index}
+                aria-label={`${label} ${index + 1}`}
+            />
+        );
+    }
+    return null;
+};
+
   if (state.loading) {
     return (
       <div className="col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-center h-screen">
@@ -293,11 +300,10 @@ const ProductDetailsSection = ({
   return (
     <Fragment>
       {isSmallScreen ? (
-        <section className="relative m-4 md:mx-12 md:my-6">
+        <section className="relative m-4 block md:hidden">
           <Link
-            className="cursor-pointer absolute z-50"
+            className="cursor-pointer absolute z-50 -top-2 left-1"
             href={'/all-products'}
-            style={{ top: '-10px', left: '5x' }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -310,49 +316,45 @@ const ProductDetailsSection = ({
               <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
             </svg>
           </Link>
-          <div className="grid mt-4 grid-cols-2 md:grid-cols-12">
-            <div className="py-4 col-span-2 md:col-span-8">
+          <div className="grid mt-4 grid-cols-2 ">
+            <div className="py-4 col-span-2 ">
               {pImages && pImages.length > 0 ? (
                 <Carousel
-                  showArrows={true}
-                  showStatus={false}
-                  showIndicators={true}
-                  showThumbs={false}
-                  dynamicHeight={true}
-                  autoPlay={false}
-                  interval={2000}
-                  infiniteLoop={true}
-                  emulateTouch={true}
-                >
-                  {pImages.map((image, index) => (
+                showArrows={true}
+                showStatus={false}
+                renderIndicator={customRenderIndicator}
+                showThumbs={false}
+                dynamicHeight={true}
+                autoPlay={false}
+                interval={2000}
+                infiniteLoop={true}
+                emulateTouch={true}
+            >
+                {pImages.map((image, index) => (
                     <div className="overflow-hidden" key={index}>
-                      <Image
-                        style={{
-                          aspectRatio: '4/3',
-                        }}
-                        width={100}
-                        height={100}
-                        priority={true}
-                        id="product-image"
-                        className="w-full object-cover object-center rounded-md"
-                        src={`${apiURL}/uploads/products/${image}`}
-                        alt={sProduct.pName}
-                      />
+                        <Image
+                            width={100}
+                            height={100}
+                            priority={true}
+                            id="product-image"
+                            className="w-full object-cover object-center rounded-md aspect-[4/3]"
+                            src={`${apiURL}/uploads/products/${image}`}
+                            alt={sProduct.pName}
+                        />
                     </div>
-                  ))}
-                </Carousel>
+                ))}
+            </Carousel>
               ) : (
                 <div>No images available</div>
               )}
             </div>
 
-            <div className="col-span-2 mt- md:mt-0 md:col-span-4 md:ml-6 lg:ml-12">
+            <div className="col-span-2 ">
               <div>
                 <div className="flex flex-col leading-8 p-4 my-4 border border-gray-300 rounded-lg shadow-lg">
                   <div className="flex flex-row justify-between items-center">
                     <h1
-                      className="font-semibold tracking-wider"
-                      style={{ color: '#d20062' }}
+                      className="font-semibold tracking-wider text-pran-red"
                     >
                       {sProduct.pName}
                     </h1>
@@ -368,7 +370,7 @@ const ProductDetailsSection = ({
                         }
                         className={`${
                           isWish(sProduct._id, wList) && 'hidden'
-                        } w-5 h-5 md:w-6 md:h-6 cursor-pointer transition-all duration-300 ease-in`}
+                        } w-5 h-5 cursor-pointer transition-all duration-300 ease-in`}
                         xmlns="http://www.w3.org/2000/svg"
                         width="29"
                         height="25"
@@ -391,7 +393,7 @@ const ProductDetailsSection = ({
                         }
                         className={`${
                           !isWish(sProduct._id, wList) && 'hidden'
-                        } w-5 h-5 md:w-6 md:h-6 cursor-pointer transition-all duration-300 ease-in`}
+                        } w-5 h-5 cursor-pointer transition-all duration-300 ease-in`}
                         xmlns="http://www.w3.org/2000/svg"
                         width="27"
                         height="23"
@@ -428,12 +430,11 @@ const ProductDetailsSection = ({
                       <div className="text-lg font-semibold">
                         ₹ {calculateEMI(sProduct.pPrice)}/mo
                       </div>
-                      <div style={{ fontSize: '10px' }}>
+                      <div className='text-xs-custom'>
                         On 10% down payment
                       </div>
                       <div
-                        style={{ fontSize: '10px' }}
-                        className="font-semibold"
+                        className="font-semibold text-xs-custom"
                       >
                         CHECK ELIGIBLITY!
                       </div>
@@ -482,7 +483,7 @@ const ProductDetailsSection = ({
                     </div>
                   )}
                   {isInput && (
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div className='flex flex-col'>
                       {errorName && (
                         <p
                           style={{
@@ -574,7 +575,7 @@ const ProductDetailsSection = ({
               <div className="border-b-2 text-gray-900 border-gray-300">
                 {sProduct.pDescription}
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 px-2 text-l">
+              <div className="grid grid-cols-2 px-2 text-l">
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-4">
                   <div className="flex flex-row items-center">
                     <svg
@@ -629,7 +630,7 @@ const ProductDetailsSection = ({
                       <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
                       <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
                     </svg>
-                    <div className="text-m pl-2" style={{ color: '#d20062' }}>
+                    <div className="text-m pl-2 text-pran-red">
                       Insurance
                     </div>
                   </div>

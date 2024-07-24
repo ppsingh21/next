@@ -8,36 +8,6 @@
 }
 
 #slider,
-#div {
-  font-family: 'Clarendon', serif; /* Apply Clarendon font to .slider */
-}
-
-/* Other existing styles */
-.slider {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 12px;
-  border-radius: 5px;
-  background: #d3d3d3;
-  outline: none;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 75%;
-  background: #b7791f;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 75%;
-  background: #b7791f;
-  cursor: pointer;
+#fontdiv {
+  font-family: 'Clarendon Regular', sans-serif; /* Apply Clarendon font to .slider */
 }
