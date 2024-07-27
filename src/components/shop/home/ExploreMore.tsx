@@ -95,12 +95,14 @@ const ExploreMore = () => {
         {isClient && window.innerWidth <= 768 ? (
           <div className="flex lg:flex-row flex-col justify-center">
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg m-4">
-              <Image style={{ width: '300px' }} src={capital} alt="capital" />
+              <Image
+                    loading='lazy' style={{ width: '300px' }} src={capital} alt="capital" />
               <h3
                 style={{ top: '30px' }}
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
+                    loading='lazy'
                   src={logo}
                   style={{ width: '16px', height: '16px' }}
                   alt="logo"
@@ -124,7 +126,8 @@ const ExploreMore = () => {
               </div>
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
-              <Image style={{ width: '300px' }} src={buyback} alt="buyback" />
+              <Image
+                    loading='lazy' style={{ width: '300px' }} src={buyback} alt="buyback" />
               <h3
                 style={{ top: '30px' }}
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
@@ -160,12 +163,14 @@ const ExploreMore = () => {
               </div>
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
-              <Image style={{ width: '300px' }} src={warranty} alt="warranty" />
+              <Image
+                    loading='lazy' style={{ width: '300px' }} src={warranty} alt="warranty" />
               <h3
                 style={{ top: '30px' }}
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
+                    loading='lazy'
                   src={warrantylogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="warrantylogo"
@@ -190,6 +195,7 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
               <Image
+                    loading='lazy'
                 style={{ width: '300px' }}
                 src={inspection}
                 alt="inspection"
@@ -199,6 +205,7 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
+                    loading='lazy'
                   src={inspectionlogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="inspectionlogo"
@@ -225,12 +232,14 @@ const ExploreMore = () => {
         ) : (
           <div className="flex lg:flex-row flex-col justify-center items-center">
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg mx-4">
-              <Image style={{ width: '300px' }} src={capital} alt="demo" />
+              <Image
+                    loading='lazy' style={{ width: '300px' }} src={capital} alt="demo" />
               <h3
                 style={{ top: '30px' }}
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
+                    loading='lazy'
                   src={logo}
                   style={{ width: '16px', height: '16px' }}
                   alt="logo"
@@ -254,7 +263,8 @@ const ExploreMore = () => {
               </div>
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
-              <Image style={{ width: '300px' }} src={buyback} alt="demo" />
+              <Image
+                    loading='lazy' style={{ width: '300px' }} src={buyback} alt="demo" />
               <h3
                 style={{ top: '30px' }}
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
@@ -290,12 +300,14 @@ const ExploreMore = () => {
               </div>
             </div>
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg mx-4">
-              <Image style={{ width: '300px' }} src={warranty} alt="warranty" />
+              <Image
+                    loading='lazy' style={{ width: '300px' }} src={warranty} alt="warranty" />
               <h3
                 style={{ top: '30px' }}
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
+                    loading='lazy'
                   src={warrantylogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="warrantylogo"
@@ -320,6 +332,7 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg mx-4">
               <Image
+                    loading='lazy'
                 style={{ width: '300px' }}
                 src={inspection}
                 alt="inspection"
@@ -329,6 +342,7 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
+                    loading='lazy'
                   src={inspectionlogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="inspectionlogo"

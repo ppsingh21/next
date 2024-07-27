@@ -1,4 +1,3 @@
-// src/components/Sidebar.tsx
 import React, { useState, useEffect } from 'react';
 import Category from './Category/Category';
 import Price from './Price/Price';
@@ -14,10 +13,8 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ handleChange, categories }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(
-    typeof window !== 'undefined' && window.innerWidth <= 768
-  );
-  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(!isMobile);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,13 +22,18 @@ const Sidebar: React.FC<SidebarProps> = ({ handleChange, categories }) => {
       setIsMobile(mobile);
       if (!mobile) {
         setIsSidebarVisible(true);
+      } else {
+        setIsSidebarVisible(false);
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    if (typeof window !== 'undefined') {
+      handleResize(); // Set initial state
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   const toggleSidebar = () => {

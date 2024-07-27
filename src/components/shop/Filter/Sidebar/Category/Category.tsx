@@ -1,5 +1,4 @@
-// src/components/Category.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 
 interface CategoryType {
@@ -14,6 +13,24 @@ interface CategoryProps {
 
 const Category: React.FC<CategoryProps> = ({ handleChange, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setIsDropdownVisible(!mobile);
+    };
+
+    if (typeof window !== 'undefined') {
+      handleResize(); // Set initial state
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedCategory(event.target.value);
@@ -23,12 +40,6 @@ const Category: React.FC<CategoryProps> = ({ handleChange, categories }) => {
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
-
-  const [isMobile, setIsMobile] = useState<boolean>(
-    typeof window !== 'undefined' && window.innerWidth <= 768
-  );
-  const [isDropdownVisible, setIsDropdownVisible] =
-    useState<boolean>(!isMobile);
   
   return (
     <div className="pb-4">

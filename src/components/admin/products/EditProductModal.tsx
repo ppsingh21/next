@@ -301,6 +301,7 @@ const EditProductModal: React.FC = () => {
                   {editformData.pImages ? (
                     <div className="flex space-x-1">
                       <Image
+                    loading='lazy'
                         className="h-16 w-16 object-cover"
                         src={`${apiURL}/uploads/products/${editformData.pImages[0]}`}
                         alt="productImage"
@@ -308,6 +309,7 @@ const EditProductModal: React.FC = () => {
                         height={100}
                       />
                       <Image
+                    loading='lazy'
                         className="h-16 w-16 object-cover"
                         src={`${apiURL}/uploads/products/${editformData.pImages[1]}`}
                         alt="productImage"

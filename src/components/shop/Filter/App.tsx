@@ -1,15 +1,20 @@
 'use client';
 import { useState, useContext, useEffect, Fragment, ChangeEvent } from 'react';
-import Navigation from './Navigation/Nav';
+import Nav from './Navigation/Nav';
 import { isWishReq, unWishReq, isWish } from '../home/Mixins';
 import Sidebar from './Sidebar/Sidebar';
 import './index.css';
-import { Carousel } from 'react-responsive-carousel';
 import Badge from '../home/Badge';
 import Image from 'next/image';
 import Link from 'next/link';
 import '../home/style.css';
 import { LayoutContext } from '../layout/layoutContext';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 const apiURL = process.env.NEXT_PUBLIC_API_URL as string;
 
 interface Product {
@@ -122,48 +127,38 @@ const AllProducts = ({
       <Fragment key={index}>
         <div className="relative my-4 col-span-1 border border-gray-300 rounded-md p-4 mx-2 shadow-lg space-y-1">
           {item.pImages && item.pImages.length > 0 ? (
-            <Carousel
-              showArrows={true}
-              showStatus={false}
-              showIndicators={false}
-              showThumbs={false}
-              dynamicHeight={true}
-              autoPlay={false}
-              interval={2000}
-              infiniteLoop={true}
-              emulateTouch={true}
-            >
-              {item.pImages.map((image: string, Imgindex: number) => (
-                <Link
-                  className="cursor-pointer"
-                  key={Imgindex}
-                  href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}
+            <Swiper
+            navigation
+            pagination={{ type: "custom"}}
+            autoplay={false}
+            loop={true}
+            modules={[Autoplay, Navigation, Pagination]}
+          >
+            {item.pImages.map((image: string, index: number) => (
+              <SwiperSlide key={index}>
+                <div
+                  className="relative w-full"
+                  style={{
+                    paddingBottom: "66.66%",
+                  }}
                 >
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      paddingBottom: '66.66%',
-                    }}
+                  <Link
+                    className="cursor-pointer"
+                    href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}
                   >
                     <Image
-                      className="object-cover rounded-md"
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                      }}
-                      src={`${apiURL}/uploads/products/${image}`}
-                      alt={item.pName}
-                      fill
-                      priority={true}
-                    />
-                  </div>
-                </Link>
-              ))}
-            </Carousel>
+                    loading='lazy'
+                       className="object-cover rounded-md absolute top-0 left-0 w-full h-full"
+                       src={`${apiURL}/uploads/products/${image}`}
+                       alt={item.pName}
+                       fill
+                       
+                     />
+                  </Link>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
           ) : (
             <div>No images available</div>
           )}
@@ -252,47 +247,24 @@ const AllProducts = ({
 
   return (
     <Fragment>
-      {isSmallScreen ? (
-        <div className="flex flex-col justify-center items-center">
+      <div className={isSmallScreen ? "flex flex-col justify-center items-center" : "hidden md:flex flex-row justify-center"}>
+        <div className={isSmallScreen ? "" : "pr-4"}>
           <Sidebar handleChange={handleChange} categories={categories} />
-          <Navigation query={query} handleInputChange={handleInputChange} />
-          <h1 className="text-left mt-4 font-semibold">
-            Buy Certified Pre-Owned Cars
-          </h1>
-          <div className="flex flex-col justify-center items-center">
-            {products && products.length > 0 ? (
-              <div className="grid grid-cols-1 lg:grid-cols-3 relative">
-                {filteredData(products, selectedCategory, priceRange, query)}
-              </div>
-            ) : (
-              <div className="col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-center py-24 text-2xl">
-                No product found
-              </div>
-            )}
-          </div>
         </div>
-      ) : (
-        <div className="flex flex-row justify-center">
-          <div className="pr-4">
-            <Sidebar handleChange={handleChange} categories={categories} />
-          </div>
-          <div className="flex flex-col justify-center items-center w-3/4">
-            <Navigation query={query} handleInputChange={handleInputChange} />
-            <h1 className="text-left mt-4 font-semibold">
-              Buy Certified Pre-Owned Cars
-            </h1>
-            {products && products.length > 0 ? (
-              <div className="grid grid-cols-3 relative">
-                {filteredData(products, selectedCategory, priceRange, query)}
-              </div>
-            ) : (
-              <div className="col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-center py-24 text-2xl">
-                No product found
-              </div>
-            )}
-          </div>
+        <div className={isSmallScreen ? "" : "flex flex-col justify-center items-center w-3/4"}>
+          <Nav query={query} handleInputChange={handleInputChange} />
+          <h1 className="mt-4 font-semibold text-center">Buy Certified Pre-Owned Cars</h1>
+          {products && products.length > 0 ? (
+            <div className={isSmallScreen ? "grid grid-cols-1 lg:grid-cols-3 relative" : "grid grid-cols-3 relative"}>
+              {filteredData(products, selectedCategory, priceRange, query)}
+            </div>
+          ) : (
+            <div className="col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-center py-24 text-2xl">
+              No product found
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </Fragment>
   );
 };

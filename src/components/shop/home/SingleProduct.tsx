@@ -97,6 +97,7 @@ const SingleProduct: React.FC = () => {
                             }}
                           >
                             <Image
+                    loading='lazy'
                               className="object-cover rounded-md"
                               style={{
                                 position: 'absolute',
@@ -108,7 +109,6 @@ const SingleProduct: React.FC = () => {
                               src={`${apiURL}/uploads/products/${image}`}
                               alt={item.pName}
                               fill
-                              priority={Imgindex == 0}
                             />
                           </div>
                         </Link>

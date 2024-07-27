@@ -59,12 +59,13 @@ const Slider: React.FC<SliderProps> = ({ initialSliderImages }) => {
       {sliderImagesData && sliderImagesData.length > 0 ? (
         <div id="slider" className="relative">
           <Image
+                    loading='lazy'
             className="w-full object-cover object-center aspect-[4/3] md:aspect-[2/1]"
             src={`${apiURL}/uploads/customize/${sliderImagesData[slide].slideImage}`}
             alt="sliderImage"
             width={100}
             height={isMobile ? 300 : 500}
-            priority={true}
+            
           />
           <span
             className="font-clarendon absolute top-0 translate-x-2.5 translate-y-10 text-xs font-normal md:translate-x-10 md:translate-y-32 md:text-4xl"

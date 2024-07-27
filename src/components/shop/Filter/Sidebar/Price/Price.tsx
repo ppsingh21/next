@@ -1,4 +1,3 @@
-// src/components/Price.tsx
 import React, { useState, useEffect } from 'react';
 import Input from '../../components/Input';
 
@@ -7,11 +6,8 @@ interface PriceProps {
 }
 
 const Price: React.FC<PriceProps> = ({ handleChange }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(
-    typeof window !== 'undefined' && window.innerWidth <= 768
-  );
-  const [isDropdownVisible, setIsDropdownVisible] =
-    useState<boolean>(!isMobile);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,10 +16,13 @@ const Price: React.FC<PriceProps> = ({ handleChange }) => {
       setIsDropdownVisible(!mobile); // Show dropdown by default on desktop, hide on mobile
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    if (typeof window !== 'undefined') {
+      handleResize(); // Set initial state
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   const toggleDropdown = () => {
