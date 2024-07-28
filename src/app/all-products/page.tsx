@@ -10,6 +10,20 @@ interface PageProps {
   };
 }
 
+interface Product {
+  _id: string;
+  pName: string;
+  pCategory: { _id: string };
+  pPrice: number;
+  pImages: string[];
+  pViews: number;
+  pDriven: number;
+  pFuel: string;
+  pTransmission: string;
+  pYear: number;
+  pTag: string;
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -23,12 +37,19 @@ export async function generateMetadata({
 
 const Page = async () => {
   const responseData = await getAllProduct();
-  const products = responseData?.Products || [];
+  const products: Product[] = responseData?.Products || [];
   const categoryData = await getAllCategory();
   const categories = categoryData?.Categories || [];
 
+  // Separate sold-out products and non-sold-out products
+  const nonSoldOutProducts = products.filter(product => product.pTag !== 'Sold_Out');
+  const soldOutProducts = products.filter(product => product.pTag === 'Sold_Out');
+
+  // Concatenate non-sold-out products with sold-out products at the end
+  const sortedProducts = [...nonSoldOutProducts, ...soldOutProducts];
+
   return (
-    <AllProducts initialProducts={products} initialCategories={categories} />
+    <AllProducts initialProducts={sortedProducts} initialCategories={categories} />
   );
 };
 
