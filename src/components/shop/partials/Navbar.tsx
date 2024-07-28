@@ -115,7 +115,7 @@ const Navbar: React.FC = () => {
         <div
           className={
             state.navberHamburger
-              ? 'px-1 pb-2 md:pb-0 md:px-10 lg:hidden'
+              ? 'px-1 pb-2 md:pb-0 md:px-10 lg:hidden absolute top-20 bg-white shadow-md w-full left-0 z-50'
               : 'hidden px-1 pb-2 md:pb-0 md:px-10 lg:hidden'
           }
         >
@@ -128,7 +128,7 @@ const Navbar: React.FC = () => {
             </Link>
             <Link
               className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
-              href="/blog"
+              href="/blogs"
             >
               Blog
             </Link>
