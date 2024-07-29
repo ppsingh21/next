@@ -177,7 +177,8 @@ export const editProduct = async (product: EditProduct): Promise<any> => {
   const formData = new FormData();
   if (product.pEditImages) {
     for (const file of product.pEditImages) {
-      formData.append('pEditImages', file);
+      const compressedFile = await compressImage(file);
+      formData.append('pEditImages', compressedFile);
     }
   }
   formData.append('pId', product.pId);
