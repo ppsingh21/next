@@ -34,6 +34,7 @@ interface Product {
   };
   pTag: string;
   pColour: string;
+  pOffer: number;
 }
 
 interface PageProps {

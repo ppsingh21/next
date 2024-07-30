@@ -31,6 +31,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { LayoutContext } from '../layout/layoutContext';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import DiscountPopup from './DiscountPopup';
 
 declare global {
   interface Window {
@@ -67,6 +68,7 @@ interface Product {
   };
   pTag: string;
   pColour: string;
+  pOffer: number;
 }
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL as string;
@@ -299,10 +301,11 @@ const ProductDetailsSection = ({
 
   return (
     <Fragment>
+      <DiscountPopup />
       {isSmallScreen ? (
         <section className="relative m-4 md:hidden block">
           <Link
-            className="cursor-pointer absolute z-50 -top-2 left-1"
+            className="cursor-pointer absolute z-40 -top-2 left-1"
             href={'/all-products'}
           >
             <svg
@@ -445,7 +448,7 @@ const ProductDetailsSection = ({
                         ₹ {sProduct.pPrice / 100000} Lakh
                       </div>
                       <div className="line-through text-xs text-right">
-                        ₹ {sProduct.pPrice / 100000 + 1} Lakh
+                        ₹ {sProduct.pPrice * 100 * sProduct.pOffer / 95} Lakh
                       </div>
                     </div>
                   </div>
@@ -1482,8 +1485,11 @@ const ProductDetailsSection = ({
                       <div className="text-2xl font-semibold">
                         ₹ {sProduct.pPrice / 100000} Lakh
                       </div>
+                      <div className="text-xs text-right">
+                      {sProduct.pOffer}% off
+                      </div>
                       <div className="line-through text-xs text-right">
-                        ₹ {sProduct.pPrice / 100000 + 1} Lakh
+                        ₹ {sProduct.pPrice * 100 / (100 - sProduct.pOffer) / 100000} Lakh
                       </div>
                     </div>
                   </div>

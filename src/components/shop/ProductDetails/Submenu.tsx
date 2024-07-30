@@ -16,6 +16,31 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
     }
   }, [product]);
 
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const nextSunday = new Date(now);
+    nextSunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
+    nextSunday.setHours(23, 59, 59, 999);
+
+    const difference = +nextSunday - +now;
+
+    const hours = Math.floor(difference / (1000 * 60 * 60));
+    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    return { hours, minutes, seconds };
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const shareEmail = (): void => {
     if (typeof window !== 'undefined') {
       window.location.href = `mailto:?body=${encodeURIComponent(shareMessage)}`;
@@ -129,6 +154,11 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
               </a>
             </div>
           </div>
+        </div>
+        {/* Timer Section */}
+        <div className="text-center mt-4">
+          <p>Offer ends in</p>
+          <p className="text-lg font-bold">{timeLeft.hours} hrs {timeLeft.minutes} mins {timeLeft.seconds} secs</p>
         </div>
       </section>
     </Fragment>

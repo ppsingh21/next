@@ -31,6 +31,7 @@ export interface Product {
   };
   pTag: string;
   pColour: string;
+  pOffer: number;
 }
 
 // Type for add/delete review response
