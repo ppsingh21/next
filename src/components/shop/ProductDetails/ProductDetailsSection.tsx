@@ -301,7 +301,10 @@ const ProductDetailsSection = ({
 
   return (
     <Fragment>
-      <DiscountPopup />
+      <DiscountPopup value={{
+                    pOffer: sProduct.pOffer,
+                    pPrice: sProduct.pPrice,
+                  }} />
       {isSmallScreen ? (
         <section className="relative m-4 md:hidden block">
           <Link
@@ -447,8 +450,11 @@ const ProductDetailsSection = ({
                       <div className="text-xl font-semibold">
                         ₹ {sProduct.pPrice / 100000} Lakh
                       </div>
+                      <div className="text-xs text-right">
+                      {sProduct.pOffer}% off
+                      </div>
                       <div className="line-through text-xs text-right">
-                        ₹ {sProduct.pPrice * 100 * sProduct.pOffer / 95} Lakh
+                        ₹ {sProduct.pPrice * 100 / (100 - sProduct.pOffer) / 100000} Lakh
                       </div>
                     </div>
                   </div>

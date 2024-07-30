@@ -123,42 +123,43 @@ const AllProducts = ({
       });
     }
 
-    return filteredProducts.map((item, index) => (
+    return filteredProducts.map((item, index) => {
+      const prevButtonClass = `slider__prev-${index}`;
+      const nextButtonClass = `slider__next-${index}`;
+      return (
       <Fragment key={index}>
         <div className="relative my-4 col-span-1 border border-gray-300 rounded-md p-4 mx-2 shadow-lg space-y-1">
           {item.pImages && item.pImages.length > 0 ? (
+            <div className="slider">
             <Swiper
-            navigation
-            pagination={{ type: "custom"}}
-            autoplay={false}
-            loop={true}
-            modules={[Autoplay, Navigation, Pagination]}
-          >
-            {item.pImages.map((image: string, index: number) => (
-              <SwiperSlide key={index}>
-                <div
-                  className="relative w-full"
-                  style={{
-                    paddingBottom: "66.66%",
-                  }}
-                >
-                  <Link
-                    className="cursor-pointer"
-                    href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}
-                  >
-                    <Image
-                    loading='lazy'
-                       className="object-cover rounded-md absolute top-0 left-0 w-full h-full"
-                       src={`${apiURL}/uploads/products/${image}`}
-                       alt={item.pName}
-                       fill
-                       
-                     />
-                  </Link>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+              navigation={{
+                nextEl: `.${nextButtonClass}`,
+                prevEl: `.${prevButtonClass}`,
+              }}
+              pagination={{ type: "custom" }}
+              autoplay={false}
+              loop={true}
+              modules={[Autoplay, Navigation, Pagination]}
+            >
+              {item.pImages.map((image: string, index: number) => (
+                <SwiperSlide key={index}>
+                  <div className="relative w-full" style={{ paddingBottom: "66.66%" }}>
+                    <Link href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}>
+                      <Image
+                        loading='lazy'
+                        className="object-cover rounded-md absolute top-0 left-0 w-full h-full"
+                        src={`${apiURL}/uploads/products/${image}`}
+                        alt={item.pName}
+                        fill
+                      />
+                    </Link>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className={`slider__prev ${prevButtonClass}`}></div>
+            <div className={`slider__next ${nextButtonClass}`}></div>
+          </div>
           ) : (
             <div>No images available</div>
           )}
@@ -242,7 +243,7 @@ const AllProducts = ({
           </div>
         </div>
       </Fragment>
-    ));
+  )});
   };
 
   return (

@@ -1,6 +1,12 @@
 import React, { useState, useEffect, Fragment } from 'react';
 
-const DiscountPopup: React.FC = () => {
+interface PopUpProps {
+    value: {
+        pOffer: number;
+        pPrice: number;
+    };
+}
+const DiscountPopup: React.FC<PopUpProps> = (props) => {
     const [show, setShow] = useState(true);
     const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
@@ -47,14 +53,14 @@ const DiscountPopup: React.FC = () => {
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="w-80 bg-white shadow-lg rounded-lg p-6">
             <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2">Sale</h2>
-              <p className="text-lg mb-2">Upto 6% OFF</p>
-              <p className="text-lg mb-4">Discount of Upto 30,000</p>
+              <h2 className="text-2xl font-bold mb-2 text-pran-red">Sale</h2>
+              <p className="text-lg mb-2">Upto {props.value.pOffer}% OFF</p>
+              <p className="text-lg mb-4">Discount of Upto {props.value.pPrice * props.value.pOffer / (100 - props.value.pOffer)}</p>
               <p className="text-lg mb-4">Hurry and book a test drive today!</p>
               <div className="text-xl font-bold mb-4">
                 <span>{timeLeft.hours}</span> hrs <span>{timeLeft.minutes}</span> mins <span>{timeLeft.seconds}</span> secs left
               </div>
-              <button className="w-full py-2 mb-2 bg-black hover:bg-gray-700 text-white rounded"
+              <button className="w-full py-2 mb-2 bg-pran-red hover:bg-gray-700 text-white rounded"
                 onClick={handleEnquireNowClick}>BOOK YOUR CAR NOW</button>
               <button className="w-full py-2 bg-gray-300 text-black hover:bg-gray-400 rounded"
                 onClick={() => setShow(false)}>NO, THANKS</button>

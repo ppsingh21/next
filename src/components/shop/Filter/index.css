@@ -24,3 +24,64 @@ li {
   color: #323232;
   cursor: pointer;
 }
+
+.slider {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+}
+
+.swiper {
+  z-index: 1;
+}
+
+.swiper img {
+  width: 100%;
+}
+
+.slider__prev, .slider__next {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(75, 75, 75, 0.4);
+  top: calc(50% - 25px);
+  cursor: pointer;
+}
+
+.slider__prev::after, .slider__next::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transform: rotate(-45deg);
+  top: 10px;
+  left: 10px;
+  box-sizing: border-box;
+}
+
+.slider__prev.swiper-button-disabled, .slider__next.swiper-button-disabled {
+  opacity: 0.6;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.slider__prev {
+  left: 0;
+}
+
+.slider__prev::after {
+  border-top: 3px solid #333;
+  border-left: 3px solid #333;
+}
+
+.slider__next {
+  right: 0;
+}
+
+.slider__next::after {
+  border-bottom: 3px solid #333;
+  border-right: 3px solid #333;
+}
