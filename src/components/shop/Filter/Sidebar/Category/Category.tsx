@@ -40,7 +40,7 @@ const Category: React.FC<CategoryProps> = ({ handleChange, categories }) => {
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
-  
+
   return (
     <div className="pb-4">
       <h2 className="text-xl pb-4 cursor-pointer" onClick={toggleDropdown}>
@@ -48,30 +48,30 @@ const Category: React.FC<CategoryProps> = ({ handleChange, categories }) => {
       </h2>
       {(isDropdownVisible || !isMobile) && (
         <>
-      <label className="sidebar-label-container">
-        <input
-          onChange={handleInputChange}
-          type="radio"
-          value="all"
-          name="category"
-          checked={selectedCategory === 'all'}
-        />
-        <span className="checkmark"></span>All
-      </label>
-      {categories.map((category) => (
-        <div key={category._id}>
-          <Button
-            title={category.cName}
-            name="category"
-            value={category._id}
-            handleChange={handleInputChange}
-            color="blue" // Replace with appropriate color logic if needed
-            checked={selectedCategory === category._id}
-          />
-        </div>
-      ))}
-      </>
-    )}
+          <label className="sidebar-label-container">
+            <input
+              onChange={handleInputChange}
+              type="radio"
+              value="all"
+              name="category"
+              checked={selectedCategory === 'all'}
+            />
+            <span className="checkmark"></span>All
+          </label>
+          {categories.map((category) => (
+            <div key={category._id}>
+              <Button
+                title={category.cName}
+                name="category"
+                value={category._id}
+                handleChange={handleInputChange}
+                color="blue" // Replace with appropriate color logic if needed
+                checked={selectedCategory === category._id}
+              />
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };

@@ -9,7 +9,12 @@ interface Order {
 }
 
 interface DashboardState {
-  totalData: { Users: number; Orders: number; Products: number; Categories: number };
+  totalData: {
+    Users: number;
+    Orders: number;
+    Products: number;
+    Categories: number;
+  };
   totalOrders: { Orders: Order[] };
   uploadSliderBtn: boolean;
   imageUpload: boolean;

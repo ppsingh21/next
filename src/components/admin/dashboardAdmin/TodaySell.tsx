@@ -65,8 +65,7 @@ const SellTable = () => {
           </tbody>
         </table>
         <div className="text-sm text-gray-600 mt-2">
-          Total{' '}
-          {data.totalOrders.Orders.length > 0 ? ordersList().length : 0}{' '}
+          Total {data.totalOrders.Orders.length > 0 ? ordersList().length : 0}{' '}
           orders found
         </div>
         <div className="flex justify-center">

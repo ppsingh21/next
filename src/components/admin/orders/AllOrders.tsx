@@ -95,7 +95,9 @@ const OrderRow: React.FC<{
     <Fragment>
       <tr className="border-b">
         <td className="w-48 hover:bg-gray-200 p-2 flex flex-col space-y-1">
-          <Link href={order.status}>{order.status.substring(0,20)+'...'}</Link>
+          <Link href={order.status}>
+            {order.status.substring(0, 20) + '...'}
+          </Link>
         </td>
         {/* <td className="hover:bg-gray-200 p-2 text-center cursor-default">
           <span

@@ -3,11 +3,11 @@ import { getAllProduct } from '../../admin/products/FetchApi';
 import { HomeContext } from './HomeContext';
 import { isWishReq, unWishReq, isWish } from './Mixins';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import './style.css';
 import Badge from './Badge';
 import Link from 'next/link';
@@ -78,36 +78,41 @@ const SingleProduct: React.FC = () => {
               <Fragment key={index}>
                 <div className="relative my-4 col-span-1 border border-gray-300 rounded-md p-4 mx-2 shadow-lg space-y-1">
                   {item.pImages && item.pImages.length > 0 ? (
-                   <div className="slider">
-                   <Swiper
-                     navigation={{
-                       nextEl: `.${nextButtonClass}`,
-                       prevEl: `.${prevButtonClass}`,
-                     }}
-                     pagination={{ type: "custom" }}
-                     autoplay={false}
-                     loop={true}
-                     modules={[Autoplay, Navigation, Pagination]}
-                   >
-                     {item.pImages.map((image: string, index: number) => (
-                       <SwiperSlide key={index}>
-                         <div className="relative w-full" style={{ paddingBottom: "66.66%" }}>
-                           <Link href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}>
-                             <Image
-                               loading='lazy'
-                               className="object-cover rounded-md absolute top-0 left-0 w-full h-full"
-                               src={`${apiURL}/uploads/products/${image}`}
-                               alt={item.pName}
-                               fill
-                             />
-                           </Link>
-                         </div>
-                       </SwiperSlide>
-                     ))}
-                   </Swiper>
-                   <div className={`slider__prev ${prevButtonClass}`}></div>
-                   <div className={`slider__next ${nextButtonClass}`}></div>
-                 </div>
+                    <div className="slider">
+                      <Swiper
+                        navigation={{
+                          nextEl: `.${nextButtonClass}`,
+                          prevEl: `.${prevButtonClass}`,
+                        }}
+                        pagination={{ type: 'custom' }}
+                        autoplay={false}
+                        loop={true}
+                        modules={[Autoplay, Navigation, Pagination]}
+                      >
+                        {item.pImages.map((image: string, index: number) => (
+                          <SwiperSlide key={index}>
+                            <div
+                              className="relative w-full"
+                              style={{ paddingBottom: '66.66%' }}
+                            >
+                              <Link
+                                href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}
+                              >
+                                <Image
+                                  loading="lazy"
+                                  className="object-cover rounded-md absolute top-0 left-0 w-full h-full"
+                                  src={`${apiURL}/uploads/products/${image}`}
+                                  alt={item.pName}
+                                  fill
+                                />
+                              </Link>
+                            </div>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                      <div className={`slider__prev ${prevButtonClass}`}></div>
+                      <div className={`slider__next ${nextButtonClass}`}></div>
+                    </div>
                   ) : (
                     <div>No images available</div>
                   )}

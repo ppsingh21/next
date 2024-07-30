@@ -67,8 +67,7 @@ const BuyCarSection = () => {
       </div>
       <div className="flex py-2 lg:space-x-8 space-y-4 text-center justify-center flex-col md:flex-row">
         <div className="lg:pl-4 lg:pr-2 mt-4">
-          <Image
-                    loading='lazy' src={inspection} alt="inspection" />
+          <Image loading="lazy" src={inspection} alt="inspection" />
           <p className="font-medium text-lg p-2">200-Points Inspection</p>
           <p>
             Every Car is carefully handpicked after a thorough quality
@@ -76,16 +75,14 @@ const BuyCarSection = () => {
           </p>
         </div>
         <div className="lg:px-2">
-          <Image
-                    loading='lazy' src={warranty} alt="warranty" />
+          <Image loading="lazy" src={warranty} alt="warranty" />
           <p className="font-medium text-lg p-2">Warranty included</p>
           <p>
             Our way of being there for you through your car ownership journey.
           </p>
         </div>
         <div className="lg:px-2">
-          <Image
-                    loading='lazy' src={moneyback} alt="moneyback" />
+          <Image loading="lazy" src={moneyback} alt="moneyback" />
           <p className="font-medium text-lg p-2">5-Day Money Back</p>
           <p>
             All our cars come with a no- questions-asked 5-day money back
@@ -93,8 +90,7 @@ const BuyCarSection = () => {
           </p>
         </div>
         <div className="lg:pl-2 lg:pr-4">
-          <Image
-                    loading='lazy' src={addedbenefits} alt="addedbenefits" />
+          <Image loading="lazy" src={addedbenefits} alt="addedbenefits" />
           <p className="font-medium text-lg p-2">Best Price Assurance</p>
           <p>
             No more endless negotiations or haggling. With Pran Motors, you get
@@ -102,9 +98,7 @@ const BuyCarSection = () => {
           </p>
         </div>
       </div>
-      <div
-        className="flex justify-between items-center lg:p-8 pt-4 space-y-2 flex-col md:flex-row"
-      >
+      <div className="flex justify-between items-center lg:p-8 pt-4 space-y-2 flex-col md:flex-row">
         <div className="flex flex-row justify-center items-center">
           <svg
             width="27px"

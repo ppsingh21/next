@@ -26,7 +26,8 @@
   width: 100%;
 }
 
-.slider__prev, .slider__next {
+.slider__prev,
+.slider__next {
   position: absolute;
   width: 30px;
   height: 30px;
@@ -38,7 +39,8 @@
   cursor: pointer;
 }
 
-.slider__prev::after, .slider__next::after {
+.slider__prev::after,
+.slider__next::after {
   content: '';
   position: absolute;
   width: 10px;
@@ -49,7 +51,8 @@
   box-sizing: border-box;
 }
 
-.slider__prev.swiper-button-disabled, .slider__next.swiper-button-disabled {
+.slider__prev.swiper-button-disabled,
+.slider__next.swiper-button-disabled {
   opacity: 0.6;
   box-shadow: none;
   cursor: not-allowed;

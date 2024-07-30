@@ -27,7 +27,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/utils/auth.ts",
-    "src/utils/jwt.ts"
-, "src/middleware.ts", "handler.js"  ],
+    "src/utils/jwt.ts",
+    "src/middleware.ts",
+    "handler.js"
+  ],
   "exclude": ["node_modules"]
 }

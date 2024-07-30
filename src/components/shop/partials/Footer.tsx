@@ -35,10 +35,9 @@ const Footer = () => {
               className="p-2 lg:block flex items-left col-span-1 text-center text-gray-800 font-bold tracking-widest uppercase text-2xl cursor-pointer"
             >
               <Image
-                    loading='lazy'
+                loading="lazy"
                 src={bgImage}
                 alt="Italian Trulli"
-                
                 height={100}
               />
             </Link>
@@ -129,7 +128,8 @@ const Footer = () => {
                   <div className="flex flex-col px-5">
                     <ul>
                       <li>
-                        <Link href={'/about-us'}
+                        <Link
+                          href={'/about-us'}
                           className="hover:underline cursor-pointer"
                         >
                           About Us
@@ -172,7 +172,7 @@ const Footer = () => {
                       <li>
                         <Link
                           className="hover:underline cursor-pointer"
-                          href={"https://www.linkedin.com/company/pran-motors/"}
+                          href={'https://www.linkedin.com/company/pran-motors/'}
                           aria-label="linkedin"
                         >
                           Careers

@@ -17,7 +17,7 @@ const config: Config = {
         '120': '30rem',
       },
       fontFamily: {
-        'clarendon': 'Clarendon Regular',
+        clarendon: 'Clarendon Regular',
       },
       aspectRatio: {
         '4/3': '4 / 3',
@@ -28,8 +28,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };
 export default config;

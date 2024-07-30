@@ -50,16 +50,17 @@ export async function generateStaticParams() {
 
   return products.map((product: Product) => ({
     id: product._id,
-    pName: sanitizeProductName(product.pName),  // Sanitize the product name
+    pName: sanitizeProductName(product.pName), // Sanitize the product name
   }));
 }
 
 function sanitizeProductName(name: string) {
-  return name.replace(/[^a-zA-Z0-9-]/g, '-');  // Replace invalid characters with '-'
+  return name.replace(/[^a-zA-Z0-9-]/g, '-'); // Replace invalid characters with '-'
 }
 
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { id } = params;
   const responseData = await getSingleProduct(id);
 

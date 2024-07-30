@@ -26,7 +26,9 @@ const AdminLogin = () => {
         <h1 className="text-2xl font-bold text-center">Admin Login</h1>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Username:</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Username:
+            </label>
             <input
               type="text"
               value={username}
@@ -35,7 +37,9 @@ const AdminLogin = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password:</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Password:
+            </label>
             <input
               type="password"
               value={password}

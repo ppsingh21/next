@@ -55,7 +55,6 @@ const AllProduct = () => {
   const { data, dispatch } = context;
   const { products } = data;
 
-
   const fetchData = async () => {
     setLoading(true);
     let responseData = await getAllProduct();
@@ -221,7 +220,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
         </td>
         <td className="p-2 text-center">
           <Image
-                    loading='lazy'
+            loading="lazy"
             className="w-12 h-12 object-cover object-center"
             src={`${apiURL}/uploads/products/${product.pImages[0]}`}
             alt="pic"

@@ -12,7 +12,7 @@ const CategoryMenu = () => {
   }
 
   const { dispatch } = context;
-  
+
   return (
     <Fragment>
       <div className="col-span-1 flex items-center">

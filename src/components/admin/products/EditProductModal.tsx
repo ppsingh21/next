@@ -1,4 +1,10 @@
-import React, { Fragment, useContext, useState, useEffect, FormEvent } from 'react';
+import React, {
+  Fragment,
+  useContext,
+  useState,
+  useEffect,
+  FormEvent,
+} from 'react';
 import { editProduct, getAllProduct } from './FetchApi';
 import { getAllCategory } from '../categories/FetchApi';
 import Image from 'next/image';
@@ -13,7 +19,7 @@ interface EditProductFormData {
   pId: string;
   pName: string;
   pDescription: string;
-  pImages: string[] ;
+  pImages: string[];
   pEditImages: File[] | undefined;
   pImage: File[];
   pStatus: string;
@@ -142,7 +148,7 @@ const EditProductModal: React.FC = () => {
   if (!context) return null; // Handle the case where context is undefined
 
   const { data, dispatch } = context;
-  
+
   const fetchData = async () => {
     let responseData = await getAllProduct();
     if (responseData && responseData.Products) {
@@ -183,6 +189,10 @@ const EditProductModal: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleWheel = (e: React.WheelEvent<HTMLInputElement>) => {
+    e.currentTarget.blur();
   };
 
   return (
@@ -268,6 +278,7 @@ const EditProductModal: React.FC = () => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="price"
                 />
@@ -301,7 +312,7 @@ const EditProductModal: React.FC = () => {
                   {editformData.pImages ? (
                     <div className="flex space-x-1">
                       <Image
-                    loading='lazy'
+                        loading="lazy"
                         className="h-16 w-16 object-cover"
                         src={`${apiURL}/uploads/products/${editformData.pImages[0]}`}
                         alt="productImage"
@@ -309,7 +320,7 @@ const EditProductModal: React.FC = () => {
                         height={100}
                       />
                       <Image
-                    loading='lazy'
+                        loading="lazy"
                         className="h-16 w-16 object-cover"
                         src={`${apiURL}/uploads/products/${editformData.pImages[1]}`}
                         alt="productImage"
@@ -372,6 +383,7 @@ const EditProductModal: React.FC = () => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="year"
                 />
@@ -411,6 +423,7 @@ const EditProductModal: React.FC = () => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="driven"
                 />
@@ -433,6 +446,7 @@ const EditProductModal: React.FC = () => {
                   }
                   className="px-4 py-2 border focus:outline-none"
                   type="number"
+                  onWheel={handleWheel}
                   id="owners"
                 />
               </div>
@@ -511,6 +525,7 @@ const EditProductModal: React.FC = () => {
                   }
                   className="px-4 py-2 border focus:outline-none"
                   type="number"
+                  onWheel={handleWheel}
                   id="engine"
                 />
               </div>
@@ -527,6 +542,7 @@ const EditProductModal: React.FC = () => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="power"
                 />
@@ -546,6 +562,7 @@ const EditProductModal: React.FC = () => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="torque"
                 />
@@ -688,6 +705,7 @@ const EditProductModal: React.FC = () => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="quantity"
                 />
@@ -705,6 +723,7 @@ const EditProductModal: React.FC = () => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="offer"
                 />
@@ -725,6 +744,7 @@ const EditProductModal: React.FC = () => {
                   }
                   className="px-4 py-2 border focus:outline-none"
                   type="number"
+                  onWheel={handleWheel}
                   id="airbag"
                 />
               </div>

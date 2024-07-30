@@ -12,16 +12,22 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setShareMessage(`Hey, Check out this ${product}! Click here: ${window.location.href}`);
+      setShareMessage(
+        `Hey, Check out this ${product}! Click here: ${window.location.href}`
+      );
     }
   }, [product]);
 
-  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   const calculateTimeLeft = () => {
     const now = new Date();
     const nextSunday = new Date(now);
-    nextSunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
+    nextSunday.setDate(now.getDate() + ((7 - now.getDay()) % 7));
     nextSunday.setHours(23, 59, 59, 999);
 
     const difference = +nextSunday - +now;
@@ -49,18 +55,18 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
 
   const shareInstagram = (): void => {
     if (typeof window !== 'undefined') {
-    window.open(
-      `https://www.instagram.com/?url=${encodeURIComponent(window.location.href)}`
-    );
-  }
+      window.open(
+        `https://www.instagram.com/?url=${encodeURIComponent(window.location.href)}`
+      );
+    }
   };
 
   const shareWhatsApp = (): void => {
     if (typeof window !== 'undefined') {
-    window.open(
-      `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage)}`
-    );
-  }
+      window.open(
+        `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage)}`
+      );
+    }
   };
   return (
     <Fragment>
@@ -158,7 +164,9 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
         {/* Timer Section */}
         <div className="text-center mt-4">
           <p>Offer ends in</p>
-          <p className="text-lg font-bold">{timeLeft.hours} hrs {timeLeft.minutes} mins {timeLeft.seconds} secs</p>
+          <p className="text-lg font-bold">
+            {timeLeft.hours} hrs {timeLeft.minutes} mins {timeLeft.seconds} secs
+          </p>
         </div>
       </section>
     </Fragment>

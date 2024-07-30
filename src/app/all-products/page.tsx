@@ -42,14 +42,21 @@ const Page = async () => {
   const categories = categoryData?.Categories || [];
 
   // Separate sold-out products and non-sold-out products
-  const nonSoldOutProducts = products.filter(product => product.pTag !== 'Sold_Out');
-  const soldOutProducts = products.filter(product => product.pTag === 'Sold_Out');
+  const nonSoldOutProducts = products.filter(
+    (product) => product.pTag !== 'Sold_Out'
+  );
+  const soldOutProducts = products.filter(
+    (product) => product.pTag === 'Sold_Out'
+  );
 
   // Concatenate non-sold-out products with sold-out products at the end
   const sortedProducts = [...nonSoldOutProducts, ...soldOutProducts];
 
   return (
-    <AllProducts initialProducts={sortedProducts} initialCategories={categories} />
+    <AllProducts
+      initialProducts={sortedProducts}
+      initialCategories={categories}
+    />
   );
 };
 

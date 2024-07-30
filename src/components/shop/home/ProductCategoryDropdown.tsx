@@ -64,7 +64,7 @@ const CategoryList: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   const fetchData = async () => {
     try {
       const responseData = await getAllCategory();
@@ -77,7 +77,6 @@ const CategoryList: React.FC = () => {
       console.log(error);
     }
   };
-  
 
   if (categories.length === 0) {
     return <div>Loading...</div>; // or any other loading indicator
@@ -94,7 +93,7 @@ const CategoryList: React.FC = () => {
               className="col-span-1 mx-6 flex flex-col items-center justify-center space-y-2 cursor-pointer"
             >
               <Image
-                    loading='lazy'
+                loading="lazy"
                 style={{
                   border: `2px solid ${hoveredIndex === index ? '#f71979' : '#fff'}`,
                   borderRadius: '0.5rem',

@@ -67,7 +67,7 @@ const Product = () => {
                   href={`/products/${product.pName.replace(/ /g, '-')}/${product._id}`}
                 >
                   <Image
-                    loading='lazy'
+                    loading="lazy"
                     width={100}
                     height={100}
                     className="cursor-pointer md:h-20 md:w-20 object-cover object-center"
@@ -75,7 +75,7 @@ const Product = () => {
                     alt="wishListproduct"
                   />
                   <div className="text-lg md:ml-6 truncate">
-                    {product.pName.substring(0,10)}
+                    {product.pName.substring(0, 10)}
                   </div>
                   <div className="font-semibold text-gray-600">
                     Rs. {product.pPrice}.00

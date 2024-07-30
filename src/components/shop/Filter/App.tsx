@@ -9,11 +9,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import '../home/style.css';
 import { LayoutContext } from '../layout/layoutContext';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -79,7 +79,7 @@ const AllProducts = ({
       };
     }
   }, []); // Empty dependency array ensures this effect runs only once after initial render
-  
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
@@ -127,136 +127,162 @@ const AllProducts = ({
       const prevButtonClass = `slider__prev-${index}`;
       const nextButtonClass = `slider__next-${index}`;
       return (
-      <Fragment key={index}>
-        <div className="relative my-4 col-span-1 border border-gray-300 rounded-md p-4 mx-2 shadow-lg space-y-1">
-          {item.pImages && item.pImages.length > 0 ? (
-            <div className="slider">
-            <Swiper
-              navigation={{
-                nextEl: `.${nextButtonClass}`,
-                prevEl: `.${prevButtonClass}`,
-              }}
-              pagination={{ type: "custom" }}
-              autoplay={false}
-              loop={true}
-              modules={[Autoplay, Navigation, Pagination]}
-            >
-              {item.pImages.map((image: string, index: number) => (
-                <SwiperSlide key={index}>
-                  <div className="relative w-full" style={{ paddingBottom: "66.66%" }}>
-                    <Link href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}>
-                      <Image
-                        loading='lazy'
-                        className="object-cover rounded-md absolute top-0 left-0 w-full h-full"
-                        src={`${apiURL}/uploads/products/${image}`}
-                        alt={item.pName}
-                        fill
-                      />
-                    </Link>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <div className={`slider__prev ${prevButtonClass}`}></div>
-            <div className={`slider__next ${nextButtonClass}`}></div>
-          </div>
-          ) : (
-            <div>No images available</div>
-          )}
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-gray-600 truncate">{item.pName}</span>
-            <div className="flex items-center space-x-1">
-              <span>
-                <svg
-                  style={{ fill: '#f71979' }}
-                  className="bi bi-eye-fill w-4 h-4 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="#f71979"
-                  viewBox="0 0 16 16"
+        <Fragment key={index}>
+          <div className="relative my-4 col-span-1 border border-gray-300 rounded-md p-4 mx-2 shadow-lg space-y-1">
+            {item.pImages && item.pImages.length > 0 ? (
+              <div className="slider">
+                <Swiper
+                  navigation={{
+                    nextEl: `.${nextButtonClass}`,
+                    prevEl: `.${prevButtonClass}`,
+                  }}
+                  pagination={{ type: 'custom' }}
+                  autoplay={false}
+                  loop={true}
+                  modules={[Autoplay, Navigation, Pagination]}
                 >
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                  {item.pImages.map((image: string, index: number) => (
+                    <SwiperSlide key={index}>
+                      <div
+                        className="relative w-full"
+                        style={{ paddingBottom: '66.66%' }}
+                      >
+                        <Link
+                          href={`/products/${item.pName.replace(/ /g, '-')}/${item._id}`}
+                        >
+                          <Image
+                            loading="lazy"
+                            className="object-cover rounded-md absolute top-0 left-0 w-full h-full"
+                            src={`${apiURL}/uploads/products/${image}`}
+                            alt={item.pName}
+                            fill
+                          />
+                        </Link>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <div className={`slider__prev ${prevButtonClass}`}></div>
+                <div className={`slider__next ${nextButtonClass}`}></div>
+              </div>
+            ) : (
+              <div>No images available</div>
+            )}
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-gray-600 truncate">{item.pName}</span>
+              <div className="flex items-center space-x-1">
+                <span>
+                  <svg
+                    style={{ fill: '#f71979' }}
+                    className="bi bi-eye-fill w-4 h-4 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="#f71979"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                  </svg>
+                </span>
+                <span className="text-gray-700">{item.pViews}</span>
+              </div>
+            </div>
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row text-xs">
+                <div className="mr-2">{item.pDriven} KM | </div>
+                <div className="mr-2">{item.pFuel} | </div>
+                <div className="mr-2">{item.pTransmission} |</div>
+                <div className="mr-2">{item.pYear}</div>
+              </div>
+              <div>
+                <svg
+                  onClick={(e) =>
+                    isWishReq(
+                      e as unknown as React.MouseEvent<HTMLElement>,
+                      item._id,
+                      setWlist
+                    )
+                  }
+                  className={`${
+                    isWish(item._id, wList) && 'hidden'
+                  } w-5 h-5 md:w-6 md:h-6 cursor-pointer transition-all duration-300 ease-in`}
+                  fill="none"
+                  stroke="#f71979"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
                 </svg>
-              </span>
-              <span className="text-gray-700">{item.pViews}</span>
+                <svg
+                  onClick={(e) =>
+                    unWishReq(
+                      e as unknown as React.MouseEvent<HTMLElement>,
+                      item._id,
+                      setWlist
+                    )
+                  }
+                  className={`${
+                    !isWish(item._id, wList) && 'hidden'
+                  } w-5 h-5 md:w-6 md:h-6 cursor-pointer transition-all duration-300 ease-in`}
+                  fill="#f71979"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className="flex flex-row justify-between">
+              <div>Rs. {item.pPrice}.00</div>
+              <Badge pTag={item.pTag} />
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row text-xs">
-              <div className="mr-2">{item.pDriven} KM | </div>
-              <div className="mr-2">{item.pFuel} | </div>
-              <div className="mr-2">{item.pTransmission} |</div>
-              <div className="mr-2">{item.pYear}</div>
-            </div>
-            <div>
-              <svg
-                onClick={(e) =>
-                  isWishReq(
-                    e as unknown as React.MouseEvent<HTMLElement>,
-                    item._id,
-                    setWlist
-                  )
-                }
-                className={`${
-                  isWish(item._id, wList) && 'hidden'
-                } w-5 h-5 md:w-6 md:h-6 cursor-pointer transition-all duration-300 ease-in`}
-                fill="none"
-                stroke="#f71979"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-              <svg
-                onClick={(e) =>
-                  unWishReq(
-                    e as unknown as React.MouseEvent<HTMLElement>,
-                    item._id,
-                    setWlist
-                  )
-                }
-                className={`${
-                  !isWish(item._id, wList) && 'hidden'
-                } w-5 h-5 md:w-6 md:h-6 cursor-pointer transition-all duration-300 ease-in`}
-                fill="#f71979"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          </div>
-          <div className="flex flex-row justify-between">
-            <div>Rs. {item.pPrice}.00</div>
-            <Badge pTag={item.pTag} />
-          </div>
-        </div>
-      </Fragment>
-  )});
+        </Fragment>
+      );
+    });
   };
 
   return (
     <Fragment>
-      <div className={isSmallScreen ? "flex flex-col justify-center items-center" : "hidden md:flex flex-row justify-center"}>
-        <div className={isSmallScreen ? "" : "pr-4"}>
+      <div
+        className={
+          isSmallScreen
+            ? 'flex flex-col justify-center items-center'
+            : 'hidden md:flex flex-row justify-center'
+        }
+      >
+        <div className={isSmallScreen ? '' : 'pr-4'}>
           <Sidebar handleChange={handleChange} categories={categories} />
         </div>
-        <div className={isSmallScreen ? "" : "flex flex-col justify-center items-center w-3/4"}>
+        <div
+          className={
+            isSmallScreen
+              ? ''
+              : 'flex flex-col justify-center items-center w-3/4'
+          }
+        >
           <Nav query={query} handleInputChange={handleInputChange} />
-          <h1 className="mt-4 font-semibold text-center">Buy Certified Pre-Owned Cars</h1>
+          <h1 className="mt-4 font-semibold text-center">
+            Buy Certified Pre-Owned Cars
+          </h1>
           {products && products.length > 0 ? (
-            <div className={isSmallScreen ? "grid grid-cols-1 lg:grid-cols-3 relative" : "grid grid-cols-3 relative"}>
+            <div
+              className={
+                isSmallScreen
+                  ? 'grid grid-cols-1 lg:grid-cols-3 relative'
+                  : 'grid grid-cols-3 relative'
+              }
+            >
               {filteredData(products, selectedCategory, priceRange, query)}
             </div>
           ) : (

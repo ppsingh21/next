@@ -30,8 +30,13 @@ import sunroof from './sunroof.png';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LayoutContext } from '../layout/layoutContext';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import DiscountPopup from './DiscountPopup';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 declare global {
   interface Window {
@@ -157,7 +162,6 @@ const ProductDetailsSection = ({
     fetchCartProduct();
   }, [initialProductData, layoutDispatch]);
 
-
   const handleContact = async (booking: string, Name: string) => {
     // Reset previous error messages
     setErrorName('');
@@ -231,7 +235,8 @@ const ProductDetailsSection = ({
   };
 
   const handleEnquiry = (productName: string) => {
-    const currentPageLink = typeof window !== 'undefined' ? window.location.href : '';
+    const currentPageLink =
+      typeof window !== 'undefined' ? window.location.href : '';
     const message = encodeURIComponent(
       `Hey Pran Motors, I have an enquiry for ${productName} at ${currentPageLink}`
     );
@@ -263,18 +268,19 @@ const ProductDetailsSection = ({
     index: number,
     label: string
   ) => {
-    if (index < 8) { // Limit to 8 dots
-        return (
-            <li
-                className={`dot ${isSelected ? 'selected' : ''}`}
-                onClick={onClickHandler}
-                key={index}
-                aria-label={`${label} ${index + 1}`}
-            />
-        );
+    if (index < 8) {
+      // Limit to 8 dots
+      return (
+        <li
+          className={`dot ${isSelected ? 'selected' : ''}`}
+          onClick={onClickHandler}
+          key={index}
+          aria-label={`${label} ${index + 1}`}
+        />
+      );
     }
     return null;
-};
+  };
 
   if (state.loading) {
     return (
@@ -301,10 +307,13 @@ const ProductDetailsSection = ({
 
   return (
     <Fragment>
-      <DiscountPopup value={{
-                    pOffer: sProduct.pOffer,
-                    pPrice: sProduct.pPrice,
-                  }} />
+      <DiscountPopup
+        value={{
+          pOffer: sProduct.pOffer,
+          pPrice: sProduct.pPrice,
+          productId: sProduct._id
+        }}
+      />
       {isSmallScreen ? (
         <section className="relative m-4 md:hidden block">
           <Link
@@ -325,32 +334,36 @@ const ProductDetailsSection = ({
           <div className="grid mt-4 grid-cols-2 ">
             <div className="py-4 col-span-2 ">
               {pImages && pImages.length > 0 ? (
-                <Carousel
-                showArrows={true}
-                showStatus={false}
-                renderIndicator={customRenderIndicator}
-                showThumbs={false}
-                dynamicHeight={true}
-                autoPlay={false}
-                interval={2000}
-                infiniteLoop={true}
-                emulateTouch={true}
-            >
-                {pImages.map((image, index) => (
-                    <div className="overflow-hidden" key={index}>
-                        <Image
-                    loading='lazy'
+                <div className="slider">
+                  <Swiper
+                    navigation={{
+                      nextEl: `.slider__prev`,
+                      prevEl: `.slider__next`,
+                    }}
+                    pagination={{ type: 'custom' }}
+                    autoplay={false}
+                    loop={true}
+                    modules={[Autoplay, Navigation, Pagination]}
+                  >
+                    {pImages.map((image, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="overflow-hidden" key={index}>
+                          <Image
+                            loading="lazy"
                             width={100}
                             height={100}
-                            
                             id="product-image"
                             className="w-full object-cover object-center rounded-md aspect-[4/3]"
                             src={`${apiURL}/uploads/products/${image}`}
                             alt={sProduct.pName}
-                        />
-                    </div>
-                ))}
-            </Carousel>
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  <div className={`slider__prev`}></div>
+                  <div className={`slider__next`}></div>
+                </div>
               ) : (
                 <div>No images available</div>
               )}
@@ -360,9 +373,7 @@ const ProductDetailsSection = ({
               <div>
                 <div className="flex flex-col leading-8 p-4 my-4 border border-gray-300 rounded-lg shadow-lg">
                   <div className="flex flex-row justify-between items-center">
-                    <h1
-                      className="font-semibold tracking-wider text-pran-red"
-                    >
+                    <h1 className="font-semibold tracking-wider text-pran-red">
                       {sProduct.pName}
                     </h1>
                     {/* WhisList Logic  */}
@@ -437,12 +448,8 @@ const ProductDetailsSection = ({
                       <div className="text-lg font-semibold">
                         ₹ {calculateEMI(sProduct.pPrice)}/mo
                       </div>
-                      <div className='text-xs-custom'>
-                        On 10% down payment
-                      </div>
-                      <div
-                        className="font-semibold text-xs-custom"
-                      >
+                      <div className="text-xs-custom">On 10% down payment</div>
+                      <div className="font-semibold text-xs-custom">
                         CHECK ELIGIBLITY!
                       </div>
                     </div>
@@ -451,10 +458,14 @@ const ProductDetailsSection = ({
                         ₹ {sProduct.pPrice / 100000} Lakh
                       </div>
                       <div className="text-xs text-right">
-                      {sProduct.pOffer}% off
+                        {sProduct.pOffer}% off
                       </div>
                       <div className="line-through text-xs text-right">
-                        ₹ {sProduct.pPrice * 100 / (100 - sProduct.pOffer) / 100000} Lakh
+                        ₹{' '}
+                        {(sProduct.pPrice * 100) /
+                          (100 - sProduct.pOffer) /
+                          100000}{' '}
+                        Lakh
                       </div>
                     </div>
                   </div>
@@ -493,7 +504,7 @@ const ProductDetailsSection = ({
                     </div>
                   )}
                   {isInput && (
-                    <div className='flex flex-col'>
+                    <div className="flex flex-col">
                       {errorName && (
                         <p
                           style={{
@@ -603,7 +614,7 @@ const ProductDetailsSection = ({
                     </div>
                   </div>
                   <div style={{ transform: 'translate(24px,0)' }}>
-                    {sProduct.pModel.substring(0,10)}
+                    {sProduct.pModel.substring(0, 10)}
                   </div>
                 </div>
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-4">
@@ -640,9 +651,7 @@ const ProductDetailsSection = ({
                       <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
                       <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
                     </svg>
-                    <div className="text-m pl-2 text-pran-red">
-                      Insurance
-                    </div>
+                    <div className="text-m pl-2 text-pran-red">Insurance</div>
                   </div>
                   <div style={{ transform: 'translate(24px,0)' }}>
                     {sProduct.pInsurance}
@@ -833,8 +842,7 @@ const ProductDetailsSection = ({
                 </div>
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center py-2">
-                    <Image
-                    loading='lazy' src={abs} alt="abs" width="16" />
+                    <Image loading="lazy" src={abs} alt="abs" width="16" />
                     <div className="px-2 text-m" style={{ color: '#d20062' }}>
                       ABS
                     </div>
@@ -846,7 +854,11 @@ const ProductDetailsSection = ({
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center py-2">
                     <Image
-                    loading='lazy' src={airbag} alt="airbag" width="16" />
+                      loading="lazy"
+                      src={airbag}
+                      alt="airbag"
+                      width="16"
+                    />
                     <div className="px-2 text-m" style={{ color: '#d20062' }}>
                       AirBags
                     </div>
@@ -860,7 +872,11 @@ const ProductDetailsSection = ({
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
                     <Image
-                    loading='lazy' src={cruise} alt="cruise" width="20" />
+                      loading="lazy"
+                      src={cruise}
+                      alt="cruise"
+                      width="20"
+                    />
                     <div className="pl-1 text-m" style={{ color: '#d20062' }}>
                       Cruise Control
                     </div>
@@ -871,8 +887,7 @@ const ProductDetailsSection = ({
                 </div>
                 <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
-                    <Image
-                    loading='lazy' src={steer} alt="steer" width="16" />
+                    <Image loading="lazy" src={steer} alt="steer" width="16" />
                     <div className="px-2 text-m" style={{ color: '#d20062' }}>
                       Adjustable Steering
                     </div>
@@ -883,8 +898,7 @@ const ProductDetailsSection = ({
                 </div>
                 <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
-                    <Image
-                    loading='lazy' src={rear} alt="rear" width="16" />
+                    <Image loading="lazy" src={rear} alt="rear" width="16" />
                     <div className="pl-2 text-m" style={{ color: '#d20062' }}>
                       Rear Parking Sensor
                     </div>
@@ -896,7 +910,11 @@ const ProductDetailsSection = ({
                 <div className="flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
                     <Image
-                    loading='lazy' src={sunroof} alt="sunroof" width="20" />
+                      loading="lazy"
+                      src={sunroof}
+                      alt="sunroof"
+                      width="20"
+                    />
                     <div className="pl-1 text-m" style={{ color: '#d20062' }}>
                       Sunroof Style
                     </div>
@@ -920,8 +938,7 @@ const ProductDetailsSection = ({
               }}
             >
               <div className="lg:pl-4 lg:pr-2 mt-4">
-                <Image
-                    loading='lazy' src={inspection} alt="inspection" />
+                <Image loading="lazy" src={inspection} alt="inspection" />
                 <p className="font-medium text-lg p-2">200-Points Inspection</p>
                 <p>
                   Every Car is carefully handpicked after a thorough quality
@@ -929,8 +946,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="lg:px-2">
-                <Image
-                    loading='lazy' src={warranty1} alt="warranty" />
+                <Image loading="lazy" src={warranty1} alt="warranty" />
                 <p className="font-medium text-lg p-2">Warranty included</p>
                 <p>
                   Our way of being there for you through your car ownership
@@ -938,8 +954,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="lg:px-2">
-                <Image
-                    loading='lazy' src={moneyback} alt="moneyback" />
+                <Image loading="lazy" src={moneyback} alt="moneyback" />
                 <p className="font-medium text-lg p-2">5-Day Money Back</p>
                 <p>
                   All our cars come with a no- questions-asked 5-day money back
@@ -947,8 +962,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="lg:pl-2 lg:pr-4">
-                <Image
-                    loading='lazy' src={addedbenefits} alt="addedbenefits" />
+                <Image loading="lazy" src={addedbenefits} alt="addedbenefits" />
                 <p className="font-medium text-lg p-2">Best Price Assurance</p>
                 <p>
                   No more endless negotiations or haggling. With Pran Motors,
@@ -977,31 +991,36 @@ const ProductDetailsSection = ({
           {/* left side */}
           <div style={{ width: '45%' }} className="mt-5 flex flex-col">
             {pImages && pImages.length > 0 ? (
-              <Carousel
-                showArrows={true}
-                showStatus={false}
-                showIndicators={true}
-                showThumbs={false}
-                dynamicHeight={true}
-                autoPlay={false}
-                interval={2000}
-                infiniteLoop={true}
-                emulateTouch={true}
-              >
-                {pImages.map((image, index) => (
-                  <div className="overflow-hidden" key={index}>
-                    <Image
-                    loading='lazy'
-                      width={100}
-                      height={100}
-                      id="product-image"
-                      className="object-cover rounded-md"
-                      src={`${apiURL}/uploads/products/${image}`}
-                      alt={sProduct.pName}
-                    />
-                  </div>
-                ))}
-              </Carousel>
+              <div className="slider">
+                <Swiper
+                  navigation={{
+                    prevEl: `.slider__prev`,
+                    nextEl: `.slider__next`,
+                  }}
+                  pagination={{ type: 'bullets' }}
+                  autoplay={false}
+                  loop={true}
+                  modules={[Autoplay, Navigation, Pagination]}
+                >
+                  {pImages.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="overflow-hidden" key={index}>
+                        <Image
+                          loading="lazy"
+                          width={100}
+                          height={100}
+                          id="product-image"
+                          className="w-full object-cover object-center rounded-md aspect-[4/3]"
+                          src={`${apiURL}/uploads/products/${image}`}
+                          alt={sProduct.pName}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <div className={`slider__prev`}></div>
+                <div className={`slider__next`}></div>
+              </div>
             ) : (
               <div>No images available</div>
             )}
@@ -1270,8 +1289,7 @@ const ProductDetailsSection = ({
                   </div>
                   <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
-                      <Image
-                    loading='lazy' src={abs} alt="abs" width="16" />
+                      <Image loading="lazy" src={abs} alt="abs" width="16" />
                       <div className="px-2 text-m" style={{ color: '#d20062' }}>
                         ABS
                       </div>
@@ -1283,7 +1301,11 @@ const ProductDetailsSection = ({
                   <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                    loading='lazy' src={airbag} alt="airbag" width="16" />
+                        loading="lazy"
+                        src={airbag}
+                        alt="airbag"
+                        width="16"
+                      />
                       <div className="px-2 text-m" style={{ color: '#d20062' }}>
                         AirBags
                       </div>
@@ -1295,7 +1317,11 @@ const ProductDetailsSection = ({
                   <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                    loading='lazy' src={cruise} alt="cruise" width="20" />
+                        loading="lazy"
+                        src={cruise}
+                        alt="cruise"
+                        width="20"
+                      />
                       <div className="pl-1 text-m" style={{ color: '#d20062' }}>
                         Cruise Control
                       </div>
@@ -1307,7 +1333,11 @@ const ProductDetailsSection = ({
                   <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                    loading='lazy' src={steer} alt="steer" width="16" />
+                        loading="lazy"
+                        src={steer}
+                        alt="steer"
+                        width="16"
+                      />
                       <div className="px-2 text-m" style={{ color: '#d20062' }}>
                         Adjustable Steering
                       </div>
@@ -1318,8 +1348,7 @@ const ProductDetailsSection = ({
                   </div>
                   <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
-                      <Image
-                    loading='lazy' src={rear} alt="rear" width="16" />
+                      <Image loading="lazy" src={rear} alt="rear" width="16" />
                       <div className="pl-2 text-m" style={{ color: '#d20062' }}>
                         Rear Parking Sensor
                       </div>
@@ -1331,7 +1360,11 @@ const ProductDetailsSection = ({
                   <div className="flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                    loading='lazy' src={sunroof} alt="sunroof" width="20" />
+                        loading="lazy"
+                        src={sunroof}
+                        alt="sunroof"
+                        width="20"
+                      />
                       <div className="pl-1 text-m" style={{ color: '#d20062' }}>
                         Sunroof Style
                       </div>
@@ -1347,8 +1380,7 @@ const ProductDetailsSection = ({
             <div className="text-lg ml-6 my-4">Pran Motors Advantage</div>
             <div className="border p-4 text-center rounded-lg grid col-span-2 grid-cols-2 justify-center items-center border-gray-300">
               <div className="p-4">
-                <Image
-                    loading='lazy' src={inspection} alt="inspection" />
+                <Image loading="lazy" src={inspection} alt="inspection" />
                 <p className="font-medium p-2">200-Points Inspection</p>
                 <p style={{ fontSize: '12px' }}>
                   Every Car is carefully handpicked after a thorough quality
@@ -1356,8 +1388,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="p-4">
-                <Image
-                    loading='lazy' src={warranty1} alt="warranty" />
+                <Image loading="lazy" src={warranty1} alt="warranty" />
                 <p className="font-medium p-2">Warranty included</p>
                 <p style={{ fontSize: '12px' }}>
                   Our way of being there for you through your car ownership
@@ -1365,8 +1396,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="p-4">
-                <Image
-                    loading='lazy' src={moneyback} alt="moneyback" />
+                <Image loading="lazy" src={moneyback} alt="moneyback" />
                 <p className="font-medium p-2">5-Day Money Back</p>
                 <p style={{ fontSize: '12px' }}>
                   All our cars come with a no- questions-asked 5-day money back
@@ -1374,8 +1404,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="p-4">
-                <Image
-                    loading='lazy' src={addedbenefits} alt="addedbenefits" />
+                <Image loading="lazy" src={addedbenefits} alt="addedbenefits" />
                 <p className="font-medium p-2">Best Price Assurance</p>
                 <p style={{ fontSize: '12px' }}>
                   No more endless negotiations or haggling. With Pran Motors,
@@ -1492,10 +1521,14 @@ const ProductDetailsSection = ({
                         ₹ {sProduct.pPrice / 100000} Lakh
                       </div>
                       <div className="text-xs text-right">
-                      {sProduct.pOffer}% off
+                        {sProduct.pOffer}% off
                       </div>
                       <div className="line-through text-xs text-right">
-                        ₹ {sProduct.pPrice * 100 / (100 - sProduct.pOffer) / 100000} Lakh
+                        ₹{' '}
+                        {(sProduct.pPrice * 100) /
+                          (100 - sProduct.pOffer) /
+                          100000}{' '}
+                        Lakh
                       </div>
                     </div>
                   </div>

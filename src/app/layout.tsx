@@ -144,7 +144,7 @@ export default function RootLayout({
         />
         <noscript>
           <Image
-                    loading='lazy'
+            loading="lazy"
             height="1"
             width="1"
             style={{ display: 'none' }}

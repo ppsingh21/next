@@ -92,7 +92,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
   if (!context) return null; // Handle the case where context is undefined
 
   const { data, dispatch } = context;
-  
+
   const fetchData = async () => {
     let responseData = await getAllProduct();
     setTimeout(() => {
@@ -197,6 +197,10 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
     }
   };
 
+  const handleWheel = (e: React.WheelEvent<HTMLInputElement>) => {
+    e.currentTarget.blur();
+  };
+
   return (
     <Fragment>
       {/* Black Overlay */}
@@ -276,6 +280,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="price"
                 />
@@ -356,6 +361,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="year"
                 />
@@ -395,6 +401,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="driven"
                 />
@@ -417,6 +424,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                   }
                   className="px-4 py-2 border focus:outline-none"
                   type="number"
+                  onWheel={handleWheel}
                   id="owners"
                 />
               </div>
@@ -495,6 +503,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                   }
                   className="px-4 py-2 border focus:outline-none"
                   type="number"
+                  onWheel={handleWheel}
                   id="engine"
                 />
               </div>
@@ -511,6 +520,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="power"
                 />
@@ -530,6 +540,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="torque"
                 />
@@ -666,6 +677,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="quantity"
                 />
@@ -683,6 +695,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                     })
                   }
                   type="number"
+                  onWheel={handleWheel}
                   className="px-4 py-2 border focus:outline-none"
                   id="offer"
                 />
@@ -703,6 +716,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
                   }
                   className="px-4 py-2 border focus:outline-none"
                   type="number"
+                  onWheel={handleWheel}
                   id="airbag"
                 />
               </div>

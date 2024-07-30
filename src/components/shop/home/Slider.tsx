@@ -59,35 +59,27 @@ const Slider: React.FC<SliderProps> = ({ initialSliderImages }) => {
       {sliderImagesData && sliderImagesData.length > 0 ? (
         <div id="slider" className="relative">
           <Image
-                    loading='lazy'
+            loading="lazy"
             className="w-full object-cover object-center aspect-[4/3] md:aspect-[2/1]"
             src={`${apiURL}/uploads/customize/${sliderImagesData[slide].slideImage}`}
             alt="sliderImage"
             width={100}
             height={isMobile ? 300 : 500}
-            
           />
-          <span
-            className="font-clarendon absolute top-0 translate-x-2.5 translate-y-10 text-xs font-normal md:translate-x-10 md:translate-y-32 md:text-4xl"
-          >
+          <span className="font-clarendon absolute top-0 translate-x-2.5 translate-y-10 text-xs font-normal md:translate-x-10 md:translate-y-32 md:text-4xl">
             Best Price - Guaranteed!
           </span>
-          <span
-            className="font-clarendon absolute top-0 translate-x-2.5 translate-y-14 text-lg tracking-wider font-normal md:translate-x-10 md:tracking-wider md:translate-y-48 md:text-7xl"
-          >
+          <span className="font-clarendon absolute top-0 translate-x-2.5 translate-y-14 text-lg tracking-wider font-normal md:translate-x-10 md:tracking-wider md:translate-y-48 md:text-7xl">
             Only
           </span>
-          <span
-            className="font-clarendon absolute top-0 text-pink-600 translate-x-16 translate-y-14 text-lg tracking-wider font-normal md:translate-x-60 md:tracking-wider md:translate-y-48 md:text-7xl"
-          >
+          <span className="font-clarendon absolute top-0 text-pink-600 translate-x-16 translate-y-14 text-lg tracking-wider font-normal md:translate-x-60 md:tracking-wider md:translate-y-48 md:text-7xl">
             Less Driven
           </span>
-          <span
-            className="font-clarendon absolute top-0 text-pink-600 translate-x-2.5 translate-y-20 text-lg tracking-wider font-normal md:translate-x-10 md:translate-y-72 md:text-7xl md:tracking-wider"
-          >
+          <span className="font-clarendon absolute top-0 text-pink-600 translate-x-2.5 translate-y-20 text-lg tracking-wider font-normal md:translate-x-10 md:translate-y-72 md:text-7xl md:tracking-wider">
             Used Cars!
           </span>
-          <Link href="/all-products"
+          <Link
+            href="/all-products"
             className={`font-clarendon absolute top-0 text-white text-center transition-colors duration-500
               translate-x-3 translate-y-44 text-xs py-1 px-2 font-light md:font-normal'
               md:translate-x-10 md:translate-y-108 md:text-2xl md:py-2 md:px-5

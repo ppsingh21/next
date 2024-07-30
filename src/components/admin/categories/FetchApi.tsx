@@ -3,18 +3,19 @@ import { Category } from './types';
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL as string;
 
-export const getAllCategory = async (): Promise<{ Categories: Category[] } | void> => {
+export const getAllCategory = async (): Promise<{
+  Categories: Category[];
+} | void> => {
   try {
     const res: AxiosResponse<{ Categories: Category[] }> = await axios.get(
       `${apiURL}/api/category/all-category`
     );
-    console.log('return',res.data);
+    console.log('return', res.data);
     return res.data;
   } catch (error) {
     console.error(error);
   }
 };
-
 
 interface CreateCategoryParams {
   cName: string;
@@ -28,7 +29,10 @@ export const createCategory = async ({
   cImage,
   cDescription,
   cStatus,
-}: CreateCategoryParams): Promise<{ success: boolean; error?: string } | void> => {
+}: CreateCategoryParams): Promise<{
+  success: boolean;
+  error?: string;
+} | void> => {
   const formData = new FormData();
   formData.append('cImage', cImage);
   formData.append('cName', cName);
@@ -36,10 +40,8 @@ export const createCategory = async ({
   formData.append('cStatus', cStatus);
 
   try {
-    const res: AxiosResponse<{ success: boolean; error?: string }> = await axios.post(
-      `${apiURL}/api/category/add-category`,
-      formData
-    );
+    const res: AxiosResponse<{ success: boolean; error?: string }> =
+      await axios.post(`${apiURL}/api/category/add-category`, formData);
     return res.data;
   } catch (error) {
     console.error(error);

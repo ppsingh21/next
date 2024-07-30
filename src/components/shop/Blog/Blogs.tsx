@@ -19,12 +19,17 @@ const Blog: React.FC<BlogProps> = ({ posts }) => {
       <ul className="space-y-5">
         {posts.map((post) => (
           <li key={post.id} className="border-b pb-5">
-            <h2 className="text-xl font-semibold mb-2">{post.title.rendered}</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              {post.title.rendered}
+            </h2>
             <div
               className="mb-3 text-gray-700"
               dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
             />
-            <Link href={`${post.link}`} className="text-blue-500 hover:underline">
+            <Link
+              href={`${post.link}`}
+              className="text-blue-500 hover:underline"
+            >
               Read more
             </Link>
           </li>
