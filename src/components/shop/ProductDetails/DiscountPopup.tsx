@@ -87,7 +87,7 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
               &times;
             </button>
             <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2 text-pran-red">Sale</h2>
+              <h2 className="text-2xl font-bold mb-2 text-pran-red">Independence Day Sale</h2>
               <p className="text-lg mb-2">{props.value.pOffer}%{' '}OFF{' '}&{' '}Discount{' '}of{' '}
                 {(props.value.pPrice * props.value.pOffer) /
                   (100 - props.value.pOffer)}
