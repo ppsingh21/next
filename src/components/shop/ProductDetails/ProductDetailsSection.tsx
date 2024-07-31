@@ -8,8 +8,6 @@ import React, {
 } from 'react';
 import ProductDetailsContext from './ProductDetailsContext';
 import Submenu from './Submenu';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
 import { postCarFormData } from './FetchApi';
 import { cartListProduct } from '../partials/FetchApi'; // Importing the required function from partials directory
 import { cartList } from './Mixins';
@@ -30,7 +28,6 @@ import sunroof from './sunroof.png';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LayoutContext } from '../layout/layoutContext';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import DiscountPopup from './DiscountPopup';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
@@ -337,8 +334,8 @@ const ProductDetailsSection = ({
                 <div className="slider">
                   <Swiper
                     navigation={{
-                      nextEl: `.slider__prev`,
-                      prevEl: `.slider__next`,
+                      prevEl: `.slider__prev`,
+                      nextEl: `.slider__next`,
                     }}
                     pagination={{ type: 'custom' }}
                     autoplay={false}
@@ -991,7 +988,7 @@ const ProductDetailsSection = ({
           {/* left side */}
           <div style={{ width: '45%' }} className="mt-5 flex flex-col">
             {pImages && pImages.length > 0 ? (
-              <div className="slider">
+              <div className="relative w-full">
                 <Swiper
                   navigation={{
                     prevEl: `.slider__prev`,

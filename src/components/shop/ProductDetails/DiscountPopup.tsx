@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import React, { useState, useEffect, Fragment } from 'react';
+import popup from './popup.png';
 
 interface PopUpProps {
   value: {
@@ -33,7 +35,9 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
   useEffect(() => {
     const hasShown = localStorage.getItem(`discountPopupShown_${props.value.productId}`);
     if (!hasShown) {
-      setShow(true);
+      setTimeout(() => {
+        setShow(true);
+      }, 1); // Show popup after 10 seconds 10000
     }
   }, [props.value.productId]);
 
@@ -73,7 +77,7 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
     <Fragment>
       {show && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-          <div className="w-80 md:w-2/5 bg-white shadow-lg rounded-lg p-6">
+          <div className="md:w-96 w-80 md:aspect-1 md:flex md:flex-row bg-white md:justify-center md:items-center shadow-lg md:rounded-l-lg md:rounded-none rounded-lg p-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold mb-2 text-pran-red">Sale</h2>
               <p className="text-lg mb-2">Upto {props.value.pOffer}% OFF</p>
@@ -88,6 +92,15 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
                 <span>{timeLeft.minutes}</span> mins{' '}
                 <span>{timeLeft.seconds}</span> secs left
               </div>
+              <Image 
+              src={popup}
+              alt="Discount Image" 
+              className="w-full mb-4 md:hidden" 
+              width={100}
+              height={100}
+              loading='eager'
+              priority
+              />
               <button
                 className="w-full py-2 mb-2 bg-pran-red hover:bg-gray-700 text-white rounded"
                 onClick={handleEnquireNowClick}
@@ -102,6 +115,17 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
               </button>
             </div>
           </div>
+          <div className='w-96 hidden md:block'>
+              <Image 
+                src={popup}
+                alt="Discount Image" 
+                className="w-full rounded-r-lg shadow-lg aspect-1 object-cover overflow-hidden" 
+                width={100}
+                height={100}
+                loading='eager'
+                priority
+                />
+            </div>
         </div>
       )}
     </Fragment>
