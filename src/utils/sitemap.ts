@@ -8,7 +8,7 @@ interface Product {
 }
 
 export async function generateSitemap() {
-  const hostname = process.env.NEXT_PUBLIC_API_URL;
+  const hostname = "https://www.pranmotors.com";
 
   const links = [
     { url: '/', changefreq: 'daily', priority: 0.9 },
