@@ -13,6 +13,7 @@ interface PopUpProps {
 const DiscountPopup: React.FC<PopUpProps> = (props) => {
   const [show, setShow] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
+    days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
@@ -26,10 +27,11 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
 
     const difference = +nextSunday - +now;
 
-    const hours = Math.floor(difference / (1000 * 60 * 60));
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((difference / (1000 * 60)) % 60);
     const seconds = Math.floor((difference / 1000) % 60);
-    return { hours, minutes, seconds };
+    return { days, hours, minutes, seconds };
   };
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
     if (!hasShown) {
       setTimeout(() => {
         setShow(true);
-      }, 1); // Show popup after 10 seconds 10000
+      }, 5000); // Show popup after 5 seconds 
     }
   }, [props.value.productId]);
 
@@ -76,31 +78,26 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
   return (
     <Fragment>
       {show && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-          <div className="md:w-96 w-80 md:aspect-1 md:flex md:flex-row bg-white md:justify-center md:items-center shadow-lg md:rounded-l-lg md:rounded-none rounded-lg p-6">
+        <div className="fixed inset-0 flex flex-col md:flex-row justify-center items-center bg-black bg-opacity-50 z-50">
+          <div className="md:w-96 w-72 md:aspect-1 flex bg-white md:justify-center md:items-center shadow-lg md:rounded-l-lg md:rounded-none rounded-t-lg p-6 relative">
+            <button
+              className="md:hidden block text-3xl absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={handleClose}
+            >
+              &times;
+            </button>
             <div className="text-center">
               <h2 className="text-2xl font-bold mb-2 text-pran-red">Sale</h2>
-              <p className="text-lg mb-2">Upto {props.value.pOffer}% OFF</p>
-              <p className="text-lg mb-4">
-                Discount of Upto{' '}
+              <p className="text-lg mb-2">{props.value.pOffer}%{' '}OFF{' '}&{' '}Discount{' '}of{' '}
                 {(props.value.pPrice * props.value.pOffer) /
                   (100 - props.value.pOffer)}
               </p>
               <p className="text-lg mb-4">Hurry and book a test drive today!</p>
               <div className="text-xl font-bold mb-4">
+                <span>{timeLeft.days}</span> days{' '}
                 <span>{timeLeft.hours}</span> hrs{' '}
-                <span>{timeLeft.minutes}</span> mins{' '}
-                <span>{timeLeft.seconds}</span> secs left
+                <span>{timeLeft.minutes}</span> mins left
               </div>
-              <Image 
-              src={popup}
-              alt="Discount Image" 
-              className="w-full mb-4 md:hidden" 
-              width={100}
-              height={100}
-              loading='eager'
-              priority
-              />
               <button
                 className="w-full py-2 mb-2 bg-pran-red hover:bg-gray-700 text-white rounded"
                 onClick={handleEnquireNowClick}
@@ -115,17 +112,23 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
               </button>
             </div>
           </div>
-          <div className='w-96 hidden md:block'>
-              <Image 
-                src={popup}
-                alt="Discount Image" 
-                className="w-full rounded-r-lg shadow-lg aspect-1 object-cover overflow-hidden" 
-                width={100}
-                height={100}
-                loading='eager'
-                priority
-                />
-            </div>
+          <div className='md:w-96 w-72 relative'>
+          <button
+              className="hidden md:block text-3xl absolute top-2 right-2 hover:text-gray-500 text-white"
+              onClick={handleClose}
+            >
+              &times;
+            </button>
+            <Image 
+              src={popup}
+              alt="Discount Image" 
+              className="w-full md:rounded-r-lg md:rounded-none rounded-b-lg shadow-lg border-white border-2 aspect-1 object-cover overflow-hidden" 
+              width={100}
+              height={100}
+              loading='eager'
+              priority
+            />
+          </div>
         </div>
       )}
     </Fragment>

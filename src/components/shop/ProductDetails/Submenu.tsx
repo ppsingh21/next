@@ -19,6 +19,7 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
   }, [product]);
 
   const [timeLeft, setTimeLeft] = useState({
+    days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
@@ -32,11 +33,11 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
 
     const difference = +nextSunday - +now;
 
-    const hours = Math.floor(difference / (1000 * 60 * 60));
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((difference / (1000 * 60)) % 60);
     const seconds = Math.floor((difference / 1000) % 60);
-
-    return { hours, minutes, seconds };
+    return { days, hours, minutes, seconds };
   };
 
   useEffect(() => {
@@ -165,7 +166,7 @@ const Submenu: React.FC<SubmenuProps> = (props) => {
         <div className="text-center mt-4">
           <p>Offer ends in</p>
           <p className="text-lg font-bold">
-            {timeLeft.hours} hrs {timeLeft.minutes} mins {timeLeft.seconds} secs
+            {timeLeft.days} days {timeLeft.hours} hrs {timeLeft.minutes} mins {timeLeft.seconds} secs
           </p>
         </div>
       </section>
