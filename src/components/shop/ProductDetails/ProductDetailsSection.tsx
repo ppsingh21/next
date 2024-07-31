@@ -839,7 +839,7 @@ const ProductDetailsSection = ({
                 </div>
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center py-2">
-                    <Image loading="lazy" src={abs} alt="abs" width="16" />
+                    <Image loading='eager' src={abs} alt="abs" width="16" />
                     <div className="px-2 text-m" style={{ color: '#d20062' }}>
                       ABS
                     </div>
@@ -851,7 +851,8 @@ const ProductDetailsSection = ({
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center py-2">
                     <Image
-                      loading="lazy"
+                      loading="eager"
+                            
                       src={airbag}
                       alt="airbag"
                       width="16"
@@ -869,7 +870,8 @@ const ProductDetailsSection = ({
                 <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
                     <Image
-                      loading="lazy"
+                      loading="eager"
+                            
                       src={cruise}
                       alt="cruise"
                       width="20"
@@ -884,7 +886,7 @@ const ProductDetailsSection = ({
                 </div>
                 <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
-                    <Image loading="lazy" src={steer} alt="steer" width="16" />
+                    <Image loading='eager' src={steer} alt="steer" width="16" />
                     <div className="px-2 text-m" style={{ color: '#d20062' }}>
                       Adjustable Steering
                     </div>
@@ -895,7 +897,7 @@ const ProductDetailsSection = ({
                 </div>
                 <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
-                    <Image loading="lazy" src={rear} alt="rear" width="16" />
+                    <Image loading='eager' src={rear} alt="rear" width="16" />
                     <div className="pl-2 text-m" style={{ color: '#d20062' }}>
                       Rear Parking Sensor
                     </div>
@@ -907,7 +909,8 @@ const ProductDetailsSection = ({
                 <div className="flex flex-col items-left justify-center text-left py-2">
                   <div className="flex flex-row items-center p-2">
                     <Image
-                      loading="lazy"
+                      loading="eager"
+                            
                       src={sunroof}
                       alt="sunroof"
                       width="20"
@@ -935,7 +938,7 @@ const ProductDetailsSection = ({
               }}
             >
               <div className="lg:pl-4 lg:pr-2 mt-4">
-                <Image loading="lazy" src={inspection} alt="inspection" />
+                <Image loading='eager' src={inspection} alt="inspection" />
                 <p className="font-medium text-lg p-2">200-Points Inspection</p>
                 <p>
                   Every Car is carefully handpicked after a thorough quality
@@ -943,7 +946,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="lg:px-2">
-                <Image loading="lazy" src={warranty1} alt="warranty" />
+                <Image loading='eager' src={warranty1} alt="warranty" />
                 <p className="font-medium text-lg p-2">Warranty included</p>
                 <p>
                   Our way of being there for you through your car ownership
@@ -951,7 +954,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="lg:px-2">
-                <Image loading="lazy" src={moneyback} alt="moneyback" />
+                <Image loading='eager' src={moneyback} alt="moneyback" />
                 <p className="font-medium text-lg p-2">5-Day Money Back</p>
                 <p>
                   All our cars come with a no- questions-asked 5-day money back
@@ -959,7 +962,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="lg:pl-2 lg:pr-4">
-                <Image loading="lazy" src={addedbenefits} alt="addedbenefits" />
+                <Image loading='eager' src={addedbenefits} alt="addedbenefits" />
                 <p className="font-medium text-lg p-2">Best Price Assurance</p>
                 <p>
                   No more endless negotiations or haggling. With Pran Motors,
@@ -1286,7 +1289,7 @@ const ProductDetailsSection = ({
                   </div>
                   <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
-                      <Image loading="lazy" src={abs} alt="abs" width="16" />
+                      <Image loading='eager' src={abs} alt="abs" width="16" />
                       <div className="px-2 text-m" style={{ color: '#d20062' }}>
                         ABS
                       </div>
@@ -1298,7 +1301,8 @@ const ProductDetailsSection = ({
                   <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                        loading="lazy"
+                        loading="eager"
+                            
                         src={airbag}
                         alt="airbag"
                         width="16"
@@ -1314,7 +1318,8 @@ const ProductDetailsSection = ({
                   <div className="border-b-2 border-gray-300 flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                        loading="lazy"
+                        loading="eager"
+                            
                         src={cruise}
                         alt="cruise"
                         width="20"
@@ -1330,7 +1335,8 @@ const ProductDetailsSection = ({
                   <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                        loading="lazy"
+                        loading="eager"
+                            
                         src={steer}
                         alt="steer"
                         width="16"
@@ -1345,7 +1351,7 @@ const ProductDetailsSection = ({
                   </div>
                   <div className="border-b-2 border-gray-300 md:border-none flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
-                      <Image loading="lazy" src={rear} alt="rear" width="16" />
+                      <Image loading='eager' src={rear} alt="rear" width="16" />
                       <div className="pl-2 text-m" style={{ color: '#d20062' }}>
                         Rear Parking Sensor
                       </div>
@@ -1357,7 +1363,8 @@ const ProductDetailsSection = ({
                   <div className="flex flex-col items-left justify-center text-left p-2">
                     <div className="flex flex-row items-center p-2">
                       <Image
-                        loading="lazy"
+                        loading="eager"
+                            
                         src={sunroof}
                         alt="sunroof"
                         width="20"
@@ -1377,7 +1384,7 @@ const ProductDetailsSection = ({
             <div className="text-lg ml-6 my-4">Pran Motors Advantage</div>
             <div className="border p-4 text-center rounded-lg grid col-span-2 grid-cols-2 justify-center items-center border-gray-300">
               <div className="p-4">
-                <Image loading="lazy" src={inspection} alt="inspection" />
+                <Image loading='eager' src={inspection} alt="inspection" />
                 <p className="font-medium p-2">200-Points Inspection</p>
                 <p style={{ fontSize: '12px' }}>
                   Every Car is carefully handpicked after a thorough quality
@@ -1385,7 +1392,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="p-4">
-                <Image loading="lazy" src={warranty1} alt="warranty" />
+                <Image loading='eager' src={warranty1} alt="warranty" />
                 <p className="font-medium p-2">Warranty included</p>
                 <p style={{ fontSize: '12px' }}>
                   Our way of being there for you through your car ownership
@@ -1393,7 +1400,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="p-4">
-                <Image loading="lazy" src={moneyback} alt="moneyback" />
+                <Image loading='eager' src={moneyback} alt="moneyback" />
                 <p className="font-medium p-2">5-Day Money Back</p>
                 <p style={{ fontSize: '12px' }}>
                   All our cars come with a no- questions-asked 5-day money back
@@ -1401,7 +1408,7 @@ const ProductDetailsSection = ({
                 </p>
               </div>
               <div className="p-4">
-                <Image loading="lazy" src={addedbenefits} alt="addedbenefits" />
+                <Image loading='eager' src={addedbenefits} alt="addedbenefits" />
                 <p className="font-medium p-2">Best Price Assurance</p>
                 <p style={{ fontSize: '12px' }}>
                   No more endless negotiations or haggling. With Pran Motors,

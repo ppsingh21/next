@@ -35,7 +35,8 @@ const Footer = () => {
               className="p-2 lg:block flex items-left col-span-1 text-center text-gray-800 font-bold tracking-widest uppercase text-2xl cursor-pointer"
             >
               <Image
-                loading="lazy"
+                loading="eager"
+                  priority          
                 src={bgImage}
                 alt="Italian Trulli"
                 height={100}

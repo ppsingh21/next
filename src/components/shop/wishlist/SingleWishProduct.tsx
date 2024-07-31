@@ -67,7 +67,8 @@ const Product = () => {
                   href={`/products/${product.pName.replace(/ /g, '-')}/${product._id}`}
                 >
                   <Image
-                    loading="lazy"
+                    loading="eager"
+                            
                     width={100}
                     height={100}
                     className="cursor-pointer md:h-20 md:w-20 object-cover object-center"

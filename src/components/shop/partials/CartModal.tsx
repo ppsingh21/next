@@ -104,7 +104,8 @@ const CartModal: React.FC = () => {
                     {/* Cart Product Start */}
                     <div className="text-white flex space-x-2 my-4 items-center">
                       <Image
-                        loading="lazy"
+                        loading="eager"
+                            
                         className="w-16 h-16 object-cover object-center"
                         src={`${apiURL}/uploads/products/${item.pImages[0]}`}
                         alt="cartProduct"

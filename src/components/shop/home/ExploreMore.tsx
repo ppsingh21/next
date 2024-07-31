@@ -96,7 +96,8 @@ const ExploreMore = () => {
           <div className="flex lg:flex-row flex-col justify-center">
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg m-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={capital}
                 alt="capital"
@@ -106,7 +107,8 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
-                  loading="lazy"
+                  loading="eager"
+                            
                   src={logo}
                   style={{ width: '16px', height: '16px' }}
                   alt="logo"
@@ -131,7 +133,8 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={buyback}
                 alt="buyback"
@@ -172,7 +175,8 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={warranty}
                 alt="warranty"
@@ -182,7 +186,8 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
-                  loading="lazy"
+                  loading="eager"
+                            
                   src={warrantylogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="warrantylogo"
@@ -207,7 +212,8 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={inspection}
                 alt="inspection"
@@ -217,7 +223,8 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
-                  loading="lazy"
+                  loading="eager"
+                            
                   src={inspectionlogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="inspectionlogo"
@@ -245,7 +252,8 @@ const ExploreMore = () => {
           <div className="flex lg:flex-row flex-col justify-center items-center">
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg mx-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={capital}
                 alt="demo"
@@ -255,7 +263,8 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
-                  loading="lazy"
+                  loading="eager"
+                            
                   src={logo}
                   style={{ width: '16px', height: '16px' }}
                   alt="logo"
@@ -280,7 +289,8 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4   rounded-lg mx-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={buyback}
                 alt="demo"
@@ -321,7 +331,8 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg mx-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={warranty}
                 alt="warranty"
@@ -331,7 +342,8 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
-                  loading="lazy"
+                  loading="eager"
+                            
                   src={warrantylogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="warrantylogo"
@@ -356,7 +368,8 @@ const ExploreMore = () => {
             </div>
             <div className="relative flex flex-col justify-center items-center p-4  rounded-lg mx-4">
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{ width: '300px' }}
                 src={inspection}
                 alt="inspection"
@@ -366,7 +379,8 @@ const ExploreMore = () => {
                 className="z-30 absolute flex flex-row text-lg justify-center items-center font-semibold"
               >
                 <Image
-                  loading="lazy"
+                  loading="eager"
+                            
                   src={inspectionlogo}
                   style={{ width: '20px', height: '20px' }}
                   alt="inspectionlogo"

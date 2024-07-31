@@ -93,7 +93,8 @@ const CategoryList: React.FC = () => {
               className="col-span-1 mx-6 flex flex-col items-center justify-center space-y-2 cursor-pointer"
             >
               <Image
-                loading="lazy"
+                loading="eager"
+                            
                 style={{
                   border: `2px solid ${hoveredIndex === index ? '#f71979' : '#fff'}`,
                   borderRadius: '0.5rem',

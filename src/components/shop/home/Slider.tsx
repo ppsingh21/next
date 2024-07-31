@@ -59,7 +59,8 @@ const Slider: React.FC<SliderProps> = ({ initialSliderImages }) => {
       {sliderImagesData && sliderImagesData.length > 0 ? (
         <div id="slider" className="relative">
           <Image
-            loading="lazy"
+            loading="eager"
+                            
             className="w-full object-cover object-center aspect-[4/3] md:aspect-[2/1]"
             src={`${apiURL}/uploads/customize/${sliderImagesData[slide].slideImage}`}
             alt="sliderImage"

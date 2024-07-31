@@ -168,7 +168,8 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
       </td>
       <td className="p-2 text-center">
         <Image
-          loading="lazy"
+          loading="eager"
+                            
           className="w-12 h-12 object-cover object-center"
           src={`${apiURL}/uploads/categories/${category.cImage}`}
           alt={category.cName}

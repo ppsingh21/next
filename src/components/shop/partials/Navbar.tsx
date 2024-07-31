@@ -73,7 +73,7 @@ const Navbar: React.FC = () => {
               style={{ letterSpacing: '0.10rem' }}
               className="pl-2"
             >
-              <Image loading="lazy" src={bgImage} alt="Logo" height={35} />
+              <Image loading='eager' priority src={bgImage} alt="Logo" height={35} />
             </Link>
           </div>
           <Link
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
             style={{ letterSpacing: '0.70rem', margin: 'auto' }}
             className="hidden lg:block flex items-left col-span-1 text-center text-gray-800 font-bold tracking-widest uppercase text-2xl cursor-pointer"
           >
-            <Image loading="lazy" src={bgImage} alt="Logo" height={90} />
+            <Image loading='eager' priority src={bgImage} alt="Logo" height={90} />
           </Link>
           <div className="flex items-right col-span-1 lg:col-span-1 justify-end">
             {/* WishList Page Button */}
