@@ -46,6 +46,20 @@ export default function RootLayout({
           name="google-site-verification"
           content="D0wHf8hppNNWTYveCr2IqnGp25888ppH0x9a0TIGQV4"
         />
+        <link rel="preload" as="image" href="/src/components/shop/ProductDetails/2150167585.jpg" />
+        <link rel="preload" as="image" href="/src/components/shop/home/addedbenifits.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/inspection.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/moneyback.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/pran.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/tag.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/warranty.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/warranty1.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/addedbenifits.png" />
+
+        <link rel="preload" as="image" href="/src/components/shop/home/Asset 1.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/Asset 2.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/Asset 3.png" />
+        <link rel="preload" as="image" href="/src/components/shop/home/Asset 4.png" />
       </head>
       <body>
         <Script
