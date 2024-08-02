@@ -11,7 +11,7 @@ const AdminLogin = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     // Replace with your actual authentication logic
-    if (username === 'admin' && password === 'password') {
+    if (username === 'Pranmotors' && password === 'Openup@123') {
       // Save authentication state (e.g., in cookies)
       Cookies.set('admin-auth', 'true', { expires: 1 }); // Expires in 1 day
       router.push('/admin/dashboard');
