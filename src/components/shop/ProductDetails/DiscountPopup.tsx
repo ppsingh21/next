@@ -81,7 +81,7 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
         <div className="fixed inset-0 flex flex-col md:flex-row justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="md:w-96 w-80 md:aspect-1 flex bg-white justify-center items-center shadow-lg md:rounded-l-lg md:rounded-none rounded-t-lg py-6 px-2 relative">
             <button
-              className="md:hidden block text-3xl absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              className="md:hidden block text-3xl absolute top-2 right-2 text-black hover:text-gray-700"
               onClick={handleClose}
             >
               &times;
@@ -117,7 +117,7 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
           </div>
           <div className='md:w-96 w-80 relative'>
           <button
-              className="hidden md:block text-3xl absolute top-2 right-2 hover:text-gray-500 text-white"
+              className="hidden md:block text-3xl absolute top-2 right-2 hover:text-gray-500 text-black"
               onClick={handleClose}
             >
               &times;
