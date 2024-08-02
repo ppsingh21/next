@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useState, useEffect, Fragment } from 'react';
-import popup from './popup.png';
+import popup from './2150167585.jpg';
 
 interface PopUpProps {
   value: {
@@ -79,7 +79,7 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
     <Fragment>
       {show && (
         <div className="fixed inset-0 flex flex-col md:flex-row justify-center items-center bg-black bg-opacity-50 z-50">
-          <div className="md:w-96 w-72 md:aspect-1 flex bg-white md:justify-center md:items-center shadow-lg md:rounded-l-lg md:rounded-none rounded-t-lg p-6 relative">
+          <div className="md:w-96 w-80 md:aspect-1 flex bg-white justify-center items-center shadow-lg md:rounded-l-lg md:rounded-none rounded-t-lg py-6 px-2 relative">
             <button
               className="md:hidden block text-3xl absolute top-2 right-2 text-gray-500 hover:text-gray-700"
               onClick={handleClose}
@@ -88,9 +88,12 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
             </button>
             <div className="text-center">
               <h2 className="text-2xl font-bold mb-2 text-pran-red">Independence Day Sale</h2>
-              <p className="text-lg mb-2">{props.value.pOffer}%{' '}OFF{' '}&{' '}Discount{' '}of{' '}
-                {(props.value.pPrice * props.value.pOffer) /
-                  (100 - props.value.pOffer)}
+              <p className="text-lg mb-2">{props.value.pOffer}%{' '}OFF{' '}&{' '}Discount{' '}of{' '}Rs.{' '}
+                {isNaN(props.value.pPrice) || 
+                isNaN(props.value.pOffer) 
+                ? "Invalid price or offer"
+                : (Math.round((props.value.pPrice * props.value.pOffer) /
+                  (100 - props.value.pOffer) /1000) * 1000).toLocaleString() }{'!'}
               </p>
               <p className="text-lg mb-4">Hurry and book a test drive today!</p>
               <div className="text-xl font-bold mb-4">
@@ -112,7 +115,7 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
               </button>
             </div>
           </div>
-          <div className='md:w-96 w-72 relative'>
+          <div className='md:w-96 w-80 relative'>
           <button
               className="hidden md:block text-3xl absolute top-2 right-2 hover:text-gray-500 text-white"
               onClick={handleClose}

@@ -137,6 +137,10 @@ const ProductDetailsSection = ({
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0,0);
+  },[])
+
+  useEffect(() => {
     layoutDispatch({
       type: 'singleProductDetail',
       payload: initialProductData,
@@ -459,9 +463,9 @@ const ProductDetailsSection = ({
                       </div>
                       <div className="line-through text-xs text-right">
                         ₹{' '}
-                        {(sProduct.pPrice * 100) /
+                        {((sProduct.pPrice * 100) /
                           (100 - sProduct.pOffer) /
-                          100000}{' '}
+                          100000).toFixed(2)}{' '}
                         Lakh
                       </div>
                     </div>
@@ -1529,9 +1533,9 @@ const ProductDetailsSection = ({
                       </div>
                       <div className="line-through text-xs text-right">
                         ₹{' '}
-                        {(sProduct.pPrice * 100) /
+                        {((sProduct.pPrice * 100) /
                           (100 - sProduct.pOffer) /
-                          100000}{' '}
+                          100000).toFixed(2)}{' '}
                         Lakh
                       </div>
                     </div>
