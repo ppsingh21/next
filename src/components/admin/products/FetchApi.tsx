@@ -30,7 +30,7 @@ interface Product {
   pDescription: string;
   pImage: File[];
   pStatus: string;
-  pCategory: string;
+  pCategory: { _id: string };
   pQuantity: string;
   pPrice: string;
   pOffer: string;
@@ -137,7 +137,7 @@ export const createProduct = async ({
     formData.append('pName', pName);
     formData.append('pDescription', pDescription);
     formData.append('pStatus', pStatus);
-    formData.append('pCategory', pCategory);
+    formData.append('pCategory', pCategory._id);
     formData.append('pQuantity', pQuantity.toString());
     formData.append('pPrice', pPrice.toString());
     formData.append('pOffer', pOffer.toString());
@@ -185,7 +185,7 @@ export const editProduct = async (product: EditProduct): Promise<any> => {
   formData.append('pName', product.pName);
   formData.append('pDescription', product.pDescription);
   formData.append('pStatus', product.pStatus);
-  formData.append('pCategory', product.pCategory);
+  formData.append('pCategory', product.pCategory._id);
   formData.append('pQuantity', product.pQuantity.toString());
   formData.append('pPrice', product.pPrice.toString());
   formData.append('pOffer', product.pOffer.toString());

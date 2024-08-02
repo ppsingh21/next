@@ -23,7 +23,7 @@ interface EditProductFormData {
   pEditImages: File[] | undefined;
   pImage: File[];
   pStatus: string;
-  pCategory: string;
+  pCategory: { _id: string } | null;
   pQuantity: string;
   pPrice: string;
   pOffer: string;
@@ -68,7 +68,7 @@ const EditProductModal: React.FC = () => {
     pEditImages: undefined,
     pImage: [],
     pStatus: '',
-    pCategory: '',
+    pCategory: null,
     pQuantity: '',
     pPrice: '',
     pOffer: '',
@@ -80,8 +80,8 @@ const EditProductModal: React.FC = () => {
     pInsurance: '',
     pFuel: '',
     pColour: '',
-    pPower: '',
     pEngine: '',
+    pPower: '',
     pTorque: '',
     pProductCode: '',
     pTag: '',
@@ -108,7 +108,13 @@ const EditProductModal: React.FC = () => {
 
   useEffect(() => {
     if (context) {
-      setEditformdata({
+      const pCategory = context.data.editProductModal.pCategory as unknown as Category | null;
+      const currentCategory = categories?.find(
+        (cat) => cat._id === (pCategory ? pCategory._id : '')
+      ) || null;
+  
+      setEditformdata((prevData) => ({
+        ...prevData,
         pId: context.data.editProductModal.pId,
         pName: context.data.editProductModal.pName,
         pDescription: context.data.editProductModal.pDescription,
@@ -116,7 +122,7 @@ const EditProductModal: React.FC = () => {
         pEditImages: undefined,
         pImage: [],
         pStatus: context.data.editProductModal.pStatus,
-        pCategory: context.data.editProductModal.pCategory,
+        pCategory: currentCategory,
         pQuantity: context.data.editProductModal.pQuantity,
         pPrice: context.data.editProductModal.pPrice,
         pOffer: context.data.editProductModal.pOffer,
@@ -141,10 +147,10 @@ const EditProductModal: React.FC = () => {
         pSunroof: context.data.editProductModal.pSunroof,
         error: false,
         success: false,
-      });
+      }));
     }
-  }, [context]);
-
+  }, [context, categories]);
+  
   if (!context) return null; // Handle the case where context is undefined
 
   const { data, dispatch } = context;
@@ -167,7 +173,10 @@ const EditProductModal: React.FC = () => {
       console.log('Image uploading');
     }
     try {
-      let responseData = await editProduct(editformData);
+      const responseData = await editProduct({
+        ...editformData,
+        pCategory: editformData.pCategory ? { _id: editformData.pCategory._id } : { _id: '' },
+      });
       if (responseData.success) {
         fetchData();
         setEditformdata({ ...editformData, success: responseData.success });
@@ -189,7 +198,7 @@ const EditProductModal: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  };   
 
   const handleWheel = (e: React.WheelEvent<HTMLInputElement>) => {
     e.currentTarget.blur();
@@ -658,17 +667,21 @@ const EditProductModal: React.FC = () => {
               <div className="w-1/2 flex flex-col space-y-1">
                 <label htmlFor="category">Product Category *</label>
                 <select
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    const selectedCategory = categories?.find(
+                      (cat) => cat._id === e.target.value
+                    );
                     setEditformdata({
                       ...editformData,
                       error: false,
                       success: false,
-                      pCategory: e.target.value,
-                    })
-                  }
+                      pCategory: selectedCategory || null,
+                    });
+                  }}
                   name="category"
                   className="px-4 py-2 border focus:outline-none"
                   id="category"
+                  value={editformData.pCategory ? editformData.pCategory._id : ''}
                 >
                   <option disabled value="">
                     Select a category
@@ -677,7 +690,8 @@ const EditProductModal: React.FC = () => {
                     ? categories.map((elem) => {
                         return (
                           <Fragment key={elem._id}>
-                            {editformData.pCategory === elem._id ? (
+                            {editformData.pCategory &&
+                            editformData.pCategory._id === elem._id ? (
                               <option value={elem._id} key={elem._id} selected>
                                 {elem.cName}
                               </option>

@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useContext,
-  useState,
-  useEffect,
-  FormEvent,
-} from 'react';
+import React, { Fragment, useContext, useState, useEffect, FormEvent } from 'react';
 import { createProduct, getAllProduct } from './FetchApi';
 import { getAllCategory } from '../categories/FetchApi';
 import { ProductContext } from './Product';
@@ -23,7 +17,7 @@ interface ProductFormData {
   pDescription: string;
   pStatus: string;
   pImage: File[];
-  pCategory: string;
+  pCategory: {_id: string} | null;
   pPrice: string;
   pOffer: string;
   pQuantity: string;
@@ -62,7 +56,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
     pDescription: '',
     pStatus: 'Active',
     pImage: [], // Initial value will be null or empty array
-    pCategory: '',
+    pCategory: null,
     pPrice: '',
     pOffer: '',
     pQuantity: '',
@@ -110,14 +104,26 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
     e.currentTarget.reset();
 
     if (!fData.pImage || fData.pImage.length < 2) {
-      setFdata({ ...fData, error: 'Please upload at least 2 image' });
+      setFdata({ ...fData, error: 'Please upload at least 2 images' });
       setTimeout(() => {
         setFdata({ ...fData, error: false });
       }, 2000);
+      return;
+    }
+
+    if (!fData.pCategory) {
+      setFdata({ ...fData, error: 'Please select a category' });
+      setTimeout(() => {
+        setFdata({ ...fData, error: false });
+      }, 2000);
+      return;
     }
 
     try {
-      let responseData = await createProduct(fData);
+      let responseData = await createProduct({
+        ...fData,
+        pCategory: fData.pCategory,
+      });
       if (responseData.success) {
         fetchData();
         setFdata({
@@ -126,7 +132,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
           pDescription: '',
           pImage: [],
           pStatus: 'Active',
-          pCategory: '',
+          pCategory: null,
           pPrice: '',
           pQuantity: '',
           pOffer: '',
@@ -159,7 +165,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
             pDescription: '',
             pImage: [],
             pStatus: 'Active',
-            pCategory: '',
+            pCategory: null,
             pPrice: '',
             pQuantity: '',
             pOffer: '',
@@ -635,18 +641,21 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ categories }) => {
               <div className="w-1/2 flex flex-col space-y-1">
                 <label htmlFor="category">Product Category *</label>
                 <select
-                  value={fData.pCategory}
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    const selectedCategory = categories.find(
+                      (cat) => cat._id === e.target.value
+                    );
                     setFdata({
                       ...fData,
                       error: false,
                       success: false,
-                      pCategory: e.target.value,
-                    })
-                  }
+                      pCategory: selectedCategory || null,
+                    });
+                  }}
                   name="category"
                   className="px-4 py-2 border focus:outline-none"
                   id="category"
+                  value={fData.pCategory ? fData.pCategory._id : ''}
                 >
                   <option disabled value="">
                     Select a category
