@@ -193,9 +193,21 @@ const SingleProduct: React.FC = () => {
                     {/* WhisList Logic End */}
                   </div>
                   <div className="flex flex-row justify-between">
-                    <div>Rs. {item.pPrice}.00</div>
+                  <div>Rs. {(item.pPrice).toLocaleString('en-IN')}.00</div>
                     <Badge pTag={item.pTag} />
                   </div>
+                  <div className="-translate-y-2 text-xs text-left">
+              <span className='line-through mr-2'>
+                        ₹{' '}
+                        {((item.pPrice * 100) /
+                          (100 - item.pOffer) /
+                          100000).toFixed(2)}{' '}
+                        Lakh
+              </span>
+              <span>
+                {item.pOffer}{' % off'}
+              </span>
+            </div>
                 </div>
               </Fragment>
             );
