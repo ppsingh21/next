@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getSingleProduct } from '@/components/shop/ProductDetails/FetchApi';
 import ProductDetailsSection from '@/components/shop/ProductDetails/ProductDetailsSection';
@@ -58,9 +58,7 @@ function sanitizeProductName(name: string) {
   return name.replace(/[^a-zA-Z0-9-]/g, '-'); // Replace invalid characters with '-'
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = params;
   const responseData = await getSingleProduct(id);
 
@@ -89,20 +87,24 @@ export async function generateMetadata({
   };
 }
 
-function Page ({params}: PageProps) {
-// const Page = async ({ params }: PageProps) => {
+function Page({ params }: PageProps) {
   const { id } = params;
-//   const responseData = await getSingleProduct(id);
+  // Fetch data if needed
+  // const responseData = await getSingleProduct(id);
 
-//   if (!responseData || !responseData.Product) {
-//     notFound();
-//   }
+  // if (!responseData || !responseData.Product) {
+  //   notFound();
+  // }
 
-//   const product = responseData.Product;
+  // const product = responseData.Product;
 
-  return <ProductDetailsSection id={id}
-  // initialProductData={product} 
-  />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductDetailsSection id={id}
+      // initialProductData={product} 
+      />
+    </Suspense>
+  );
 };
 
 export default Page;

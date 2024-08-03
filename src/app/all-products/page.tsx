@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import { getAllProduct } from '@/components/admin/products/FetchApi';
 import { getAllCategory } from '@/components/admin/categories/FetchApi';
@@ -25,40 +25,35 @@ interface Product {
   pOffer: string;
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   return {
     title: 'Book Second Hand Car | Swift, Hyundai, Maruti Suzuki & More',
-    description:
-      'Get Honda, Ford, BMW, AUDI, SKODA, Hyundai, Maruti Suzuki, Swift second hand cars in Bangalore and more. Visit our website, and book free test drive. Call Now!',
+    description: 'Get Honda, Ford, BMW, AUDI, SKODA, Hyundai, Maruti Suzuki, Swift second hand cars in Bangalore and more. Visit our website, and book free test drive. Call Now!',
     keywords: 'Second Hand Car',
   };
 }
 
-function Page () {
-// = async () =>{
+function Page() {
+  // Fetch data if needed
   // const responseData = await getAllProduct();
   // const products: Product[] = responseData?.Products || [];
   // const categoryData = await getAllCategory();
   // const categories = categoryData?.Categories || [];
 
   // // Separate sold-out products and non-sold-out products
-  // const nonSoldOutProducts = products.filter(
-  //   (product) => product.pTag !== 'Sold_Out'
-  // );
-  // const soldOutProducts = products.filter(
-  //   (product) => product.pTag === 'Sold_Out'
-  // );
+  // const nonSoldOutProducts = products.filter(product => product.pTag !== 'Sold_Out');
+  // const soldOutProducts = products.filter(product => product.pTag === 'Sold_Out');
 
   // // Concatenate non-sold-out products with sold-out products at the end
   // const sortedProducts = [...nonSoldOutProducts, ...soldOutProducts];
 
   return (
-    <AllProducts
-      // initialProducts={sortedProducts}
-      // initialCategories={categories}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <AllProducts
+        // initialProducts={sortedProducts}
+        // initialCategories={categories}
+      />
+    </Suspense>
   );
 };
 
