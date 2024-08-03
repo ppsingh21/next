@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import ProductDetailsContext from './ProductDetailsContext';
 import Submenu from './Submenu';
-import { postCarFormData } from './FetchApi';
+import { getSingleProduct, postCarFormData } from './FetchApi';
 import { cartListProduct } from '../partials/FetchApi'; // Importing the required function from partials directory
 import { cartList } from './Mixins';
 import './style.css';
@@ -34,6 +34,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import useScrollToTop from '@/components/Scrolltotop';
 
 declare global {
   interface Window {
@@ -70,16 +71,12 @@ interface Product {
   };
   pTag: string;
   pColour: string;
-  pOffer: number;
+  pOffer: string;
 }
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL as string;
 
-const ProductDetailsSection = ({
-  initialProductData,
-}: {
-  initialProductData: Product;
-}) => {
+const ProductDetailsSection = ({ id }: { id: string }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
@@ -118,8 +115,7 @@ const ProductDetailsSection = ({
   const { state: layoutData, dispatch: layoutDispatch } =
     useContext(LayoutContext);
 
-  const sProduct = initialProductData;
-  const [pImages, setPimages] = useState<string[] | null>(sProduct.pImages);
+  const [sProduct, setSProduct] = useState<Product | null>(null);
   const [isInput, setInput] = useState(false);
   const [booking, setBooking] = useState('');
   const [interestText, setInterestText] = useState('');
@@ -131,38 +127,40 @@ const ProductDetailsSection = ({
   const [wList, setWlist] = useState<string[]>([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const responseData = await getSingleProduct(id); // Assuming you have a function to fetch product by ID
+      if (responseData && responseData.Product) {
+        setSProduct(responseData.Product);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       setWlist(JSON.parse(localStorage.getItem('wishList') || '[]'));
     }
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0,0);
-  },[])
+  useScrollToTop();
 
   useEffect(() => {
-    layoutDispatch({
-      type: 'singleProductDetail',
-      payload: initialProductData,
-    });
-    layoutDispatch({ type: 'inCart', payload: cartList() });
-    const fetchCartProduct = async () => {
-      try {
-        const responseData = await cartListProduct();
-        if (responseData && responseData.Products) {
-          layoutDispatch({
-            type: 'cartProduct',
-            payload: responseData.Products,
-          });
+    if (sProduct) {
+      layoutDispatch({ type: 'singleProductDetail', payload: sProduct });
+      layoutDispatch({ type: 'inCart', payload: cartList() });
+      const fetchCartProduct = async () => {
+        try {
+          const responseData = await cartListProduct();
+          if (responseData && responseData.Products) {
+            layoutDispatch({ type: 'cartProduct', payload: responseData.Products });
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchCartProduct();
-  }, [initialProductData, layoutDispatch]);
-
+      };
+      fetchCartProduct();
+    }
+  }, [sProduct, layoutDispatch]);
   const handleContact = async (booking: string, Name: string) => {
     // Reset previous error messages
     setErrorName('');
@@ -334,7 +332,7 @@ const ProductDetailsSection = ({
           </Link>
           <div className="grid mt-4 grid-cols-2 ">
             <div className="py-4 col-span-2 ">
-              {pImages && pImages.length > 0 ? (
+              {sProduct.pImages && sProduct.pImages.length > 0 ? (
                 <div className="slider">
                   <Swiper
                     navigation={{
@@ -346,7 +344,7 @@ const ProductDetailsSection = ({
                     loop={true}
                     modules={[Autoplay, Navigation, Pagination]}
                   >
-                    {pImages.map((image, index) => (
+                    {sProduct.pImages.map((image: string, index: number) => (
                       <SwiperSlide key={index}>
                         <div className="overflow-hidden" key={index}>
                           <Image
@@ -464,7 +462,7 @@ const ProductDetailsSection = ({
                       <div className="line-through text-xs text-right">
                         ₹{' '}
                         {((sProduct.pPrice * 100) /
-                          (100 - sProduct.pOffer) /
+                          (100 - parseFloat(sProduct.pOffer)) /
                           100000).toFixed(2)}{' '}
                         Lakh
                       </div>
@@ -994,7 +992,7 @@ const ProductDetailsSection = ({
           </Link>
           {/* left side */}
           <div style={{ width: '45%' }} className="mt-5 flex flex-col">
-            {pImages && pImages.length > 0 ? (
+            {sProduct.pImages && sProduct.pImages.length > 0 ? (
               <div className="relative w-full">
                 <Swiper
                   navigation={{
@@ -1006,7 +1004,7 @@ const ProductDetailsSection = ({
                   loop={true}
                   modules={[Autoplay, Navigation, Pagination]}
                 >
-                  {pImages.map((image, index) => (
+                  {sProduct.pImages.map((image: string, index: number) => (
                     <SwiperSlide key={index}>
                       <div className="overflow-hidden" key={index}>
                         <Image
@@ -1534,7 +1532,7 @@ const ProductDetailsSection = ({
                       <div className="line-through text-xs text-right">
                         ₹{' '}
                         {((sProduct.pPrice * 100) /
-                          (100 - sProduct.pOffer) /
+                          (100 - parseFloat(sProduct.pOffer)) /
                           100000).toFixed(2)}{' '}
                         Lakh
                       </div>

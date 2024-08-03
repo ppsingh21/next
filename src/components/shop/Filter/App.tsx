@@ -14,6 +14,9 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { getAllProduct } from '@/components/admin/products/FetchApi';
+import { getAllCategory } from '@/components/admin/categories/FetchApi';
+import useScrollToTop from '@/components/Scrolltotop';
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -29,6 +32,7 @@ interface Product {
   pTransmission: string;
   pYear: number;
   pTag: string;
+  pOffer: string;
 }
 
 interface Category {
@@ -41,10 +45,12 @@ interface AllProductsProps {
   initialCategories: Category[];
 }
 
-const AllProducts = ({
-  initialProducts,
-  initialCategories,
-}: AllProductsProps) => {
+const AllProducts = (
+//   {
+//   initialProducts,
+//   initialCategories,
+// }: AllProductsProps
+) => {
   const { state, dispatch } = useContext(LayoutContext);
   const [wList, setWlist] = useState<string[]>([]);
 
@@ -54,17 +60,45 @@ const AllProducts = ({
     }
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0,0);
-  })
+  useScrollToTop();
 
-  const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [categories, setCategories] = useState<Category[]>(initialCategories);
+  const [products, setProducts] = useState<Product[]>([]
+    // initialProducts
+  );
+  const [categories, setCategories] = useState<Category[]>([]);
+  // initialCategories
+  // );
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('');
   // Initialize state for screen size
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const responseData = await getAllProduct();
+      const products: Product[] = responseData?.Products || [];
+      const categoryData = await getAllCategory();
+      const categories = categoryData?.Categories || [];
+
+      // Separate sold-out products and non-sold-out products
+      const nonSoldOutProducts = products.filter(
+        (product) => product.pTag !== 'Sold_Out'
+      );
+      const soldOutProducts = products.filter(
+        (product) => product.pTag === 'Sold_Out'
+      );
+
+      // Concatenate non-sold-out products with sold-out products at the end
+      const sortedProducts = [...nonSoldOutProducts, ...soldOutProducts];
+
+      setProducts(sortedProducts);
+      setCategories(categories);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

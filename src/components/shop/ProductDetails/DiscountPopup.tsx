@@ -4,7 +4,7 @@ import popup from './2150167585.jpg';
 
 interface PopUpProps {
   value: {
-    pOffer: number;
+    pOffer: string;
     pPrice: number;
     productId: string;
   };
@@ -90,10 +90,10 @@ const DiscountPopup: React.FC<PopUpProps> = (props) => {
               <h2 className="text-2xl font-bold mb-2 text-pran-red">Independence Day Sale</h2>
               <p className="text-lg mb-2">{props.value.pOffer}%{' '}OFF{' '}&{' '}Discount{' '}of{' '}Rs.{' '}
                 {isNaN(props.value.pPrice) || 
-                isNaN(props.value.pOffer) 
+                isNaN(parseFloat(props.value.pOffer)) 
                 ? "Invalid price or offer"
-                : (Math.round((props.value.pPrice * props.value.pOffer) /
-                  (100 - props.value.pOffer) /1000) * 1000).toLocaleString() }{'!'}
+                : (Math.round((props.value.pPrice * parseFloat(props.value.pOffer)) /
+                  (100 - parseFloat(props.value.pOffer)) /1000) * 1000).toLocaleString() }{'!'}
               </p>
               <p className="text-lg mb-4">Hurry and book a test drive today!</p>
               <div className="text-xl font-bold mb-4">

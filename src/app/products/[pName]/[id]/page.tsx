@@ -34,7 +34,7 @@ interface Product {
   };
   pTag: string;
   pColour: string;
-  pOffer: number;
+  pOffer: string;
 }
 
 interface PageProps {
@@ -89,17 +89,20 @@ export async function generateMetadata({
   };
 }
 
-const Page = async ({ params }: PageProps) => {
+function Page ({params}: PageProps) {
+// const Page = async ({ params }: PageProps) => {
   const { id } = params;
-  const responseData = await getSingleProduct(id);
+//   const responseData = await getSingleProduct(id);
 
-  if (!responseData || !responseData.Product) {
-    notFound();
-  }
+//   if (!responseData || !responseData.Product) {
+//     notFound();
+//   }
 
-  const product = responseData.Product;
+//   const product = responseData.Product;
 
-  return <ProductDetailsSection initialProductData={product} />;
+  return <ProductDetailsSection id={id}
+  // initialProductData={product} 
+  />;
 };
 
 export default Page;

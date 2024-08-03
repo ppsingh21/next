@@ -22,6 +22,7 @@ interface Product {
   pTransmission: string;
   pYear: number;
   pTag: string;
+  pOffer: string;
 }
 
 export async function generateMetadata({
@@ -35,27 +36,28 @@ export async function generateMetadata({
   };
 }
 
-const Page = async () => {
-  const responseData = await getAllProduct();
-  const products: Product[] = responseData?.Products || [];
-  const categoryData = await getAllCategory();
-  const categories = categoryData?.Categories || [];
+function Page () {
+// = async () =>{
+  // const responseData = await getAllProduct();
+  // const products: Product[] = responseData?.Products || [];
+  // const categoryData = await getAllCategory();
+  // const categories = categoryData?.Categories || [];
 
-  // Separate sold-out products and non-sold-out products
-  const nonSoldOutProducts = products.filter(
-    (product) => product.pTag !== 'Sold_Out'
-  );
-  const soldOutProducts = products.filter(
-    (product) => product.pTag === 'Sold_Out'
-  );
+  // // Separate sold-out products and non-sold-out products
+  // const nonSoldOutProducts = products.filter(
+  //   (product) => product.pTag !== 'Sold_Out'
+  // );
+  // const soldOutProducts = products.filter(
+  //   (product) => product.pTag === 'Sold_Out'
+  // );
 
-  // Concatenate non-sold-out products with sold-out products at the end
-  const sortedProducts = [...nonSoldOutProducts, ...soldOutProducts];
+  // // Concatenate non-sold-out products with sold-out products at the end
+  // const sortedProducts = [...nonSoldOutProducts, ...soldOutProducts];
 
   return (
     <AllProducts
-      initialProducts={sortedProducts}
-      initialCategories={categories}
+      // initialProducts={sortedProducts}
+      // initialCategories={categories}
     />
   );
 };
